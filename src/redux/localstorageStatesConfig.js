@@ -1,0 +1,1 @@
+export const localstorageStates = ['asyncReducer.payload', 'demo1.demo1'];

@@ -1,0 +1,47 @@
+.g-main-head{
+    background:#fff;
+}
+.g-main-body{
+    position: fixed;
+    top:64px;
+    bottom:0;
+    left: 0;
+    right:0;
+    .g-main-body-right{
+        margin:20px;
+        margin-bottom: 0;
+        padding:10px;
+        background: #fff;
+        display: flex;
+        flex-direction: column;
+        .g-main-content{
+            // margin:16px;
+            background: #fff;
+            flex:1;
+            .ant-layout{
+                background: #fff;
+            }
+        }
+        .g-main-footer{
+            text-align: center;
+            margin:0 -10px;
+            margin-bottom: -10px;
+        }
+    }
+    .g-main-sider{
+        .sider-link{
+            display: inline-block;
+            color:#fff;
+        }
+    }
+}
+
+.fade-enter {
+  opacity: 0;
+  z-index: 1;
+}
+
+.fade-enter.fade-enter-active {
+  opacity: 1;
+  transition: opacity 250ms ease-in;
+}
