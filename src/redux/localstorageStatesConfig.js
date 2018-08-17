@@ -1,1 +1,1 @@
-export const localstorageStates = ['asyncReducer.payload', 'demo1.demo1'];
+export default ['asyncReducer.payload', 'demo1.demo1'];
