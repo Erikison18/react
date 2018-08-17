@@ -1,9 +1,8 @@
 import 'react';
 import 'react-dom';
-import 'react-router';
+import 'react-router-dom';
 import 'redux';
 import 'react-redux';
-import 'redux-thunk';
 import 'prop-types';
 // import 'fetch-default';
 import 'babel-polyfill';
