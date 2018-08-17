@@ -110,7 +110,7 @@ project
 * [fetch](https://developer.mozilla.org/zh-CN/docs/Web/API/Fetch_API/Using_Fetch)
 
 ### 技术栈脑图
-* [fetch](../er.png)
+* [er.png](../er.png)
 	
 	
 	
