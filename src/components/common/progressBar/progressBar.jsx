@@ -3,7 +3,6 @@ import React, {
 } from 'react';
 
 import ReactDOM from 'react-dom';
-import Loadable from 'react-loadable';
 import LoadingBar from 'react-redux-loading-bar';
 import './progressBar.less';
 
