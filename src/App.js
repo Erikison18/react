@@ -22,6 +22,9 @@ import 'moment/locale/zh-cn';
 import zh_CN from 'antd/lib/locale-provider/zh_CN';
 import configureStore from './redux/createStore.js';
 import ProgressBar from '@common/progressBar/progressBar.jsx';
+/*
+*懒加载模块components
+*/
 import RouterLoadable from '@common/routerLoadable/routerLoadable.jsx';
 import './App.less';
 
@@ -55,7 +58,7 @@ fetch.default({
             this.abort();
         }
 
-        return response;
+        return response.json();
 
     },
     fail(e) {

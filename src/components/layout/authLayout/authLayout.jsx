@@ -3,10 +3,7 @@ import React, {
 } from 'react';
 
 import {
-    Route,
-    Switch,
-    Redirect,
-    // Link,
+    Link,
     withRouter
 } from 'react-router-dom';
 
@@ -17,139 +14,54 @@ import {
     bindActionCreators
 } from 'redux';
 
-import CatchErrorBoundary from '@common/catchErrorBoundary/catchErrorBoundary.jsx'
-import * as actiontor from '@actions/demo1.js';
+/*
+*错误边界捕获
+*/
+import CatchErrorBoundary from '@common/catchErrorBoundary/catchErrorBoundary.jsx';
+
+/*
+*懒加载模块components
+*/
+// import RouterLoadable from '@common/routerLoadable/routerLoadable.jsx';
 import './authLayout.less';
-import { Layout, Menu, Icon } from 'antd';
-import RouterLoadable from '@common/routerLoadable/routerLoadable.jsx';
+import {actiontor}  from '@models/count.js';
 
-let MarketingHistory = RouterLoadable({
-    loader: () =>
-        import ('@components/marketingHistory/marketingHistory.jsx'),
-});
-let MarketingActivities = RouterLoadable({
-    loader: () =>
-        import ('@components/marketingActivities/marketingActivities.jsx'),
-});
-let NoteGroup = RouterLoadable({
-    loader: () =>
-        import ('@components/noteGroup/noteGroup.jsx'),
-});
-let TargetNumber = RouterLoadable({
-    loader: () =>
-        import ('@components/targetNumber/targetNumber.jsx'),
-});
-let Feedback = RouterLoadable({
-    loader: () =>
-        import ('@components/feedback/feedback.jsx'),
-});
-
-const { Header, Footer, Sider } = Layout;
-
-
+/*
+组件AuthLayout连接到store，
+通过bindActionCreators把action和dispanth合成一个fun，方便调用。你也可以不传入connect的第二个参数结合bindActionCreators完成上述操作。
+*/
 @connect(
-    state => ({demo1: state.demo1}),
+    ({count}) => ({count}),
     (dispatch, ownProps) => bindActionCreators(actiontor, dispatch)
 )
 @withRouter
 export default class AuthLayout extends Component {
 
-    state = {
-        collapsed: false,
-        defaultSelectedKeys:this.props.location.pathname.replace(`${this.props.match.path}/`,'').split('/')[0]
-    };
+    componentDidMount() {}
 
-    onCollapse (collapsed) {
-        console.log(collapsed);
-        this.setState({ collapsed });
-    }
-
-    menuClickHandle({key}){
-
-        let path='';
-
-        switch(key){
-            case 'marketingHistory':
-                path = `${this.props.match.path}/marketingHistory/historyQuery`;
-                break;
-            case 'marketingActivities':
-                path = `${this.props.match.path}/marketingActivities/activitiesList`;
-                break;
-            case 'noteGroup':
-                path = `${this.props.match.path}/noteGroup/send`;
-                break;
-            case 'targetNumber':
-                path = `${this.props.match.path}/targetNumber/history`;
-                break;
-            case 'feedback':
-                path = `${this.props.match.path}/feedback/list`;
-                break;
-            default:
-                path= 'error';
+    /*
+    这里假设获取 count的值和操作count的值在不同的组件中，并且操作count的组件不是获取count组件的父级
+    当然咯正常这种情况我们用this.state就够了。
+    */
+    handlClick(e){
+        if(e.target.name==='increment'){
+            this.props.increment(1);
+        }else if(e.target.name==='decrement'){
+            this.props.decrement(1);
+        }else if(e.target.name==='multiply'){
+            this.props.multiply(2);
         }
-
-        this.props.history.replace(path);
-
     }
 
     render() {
-        // console.log(this.props);
         return (
-            <div>
-                <Layout>
-                    <Header className="g-main-head">
-                        <h3>Asiainfo(亚信科技) OBC IOP监测</h3>
-                    </Header>
-                    <Layout className="g-main-body">
-                        <Sider
-                            className="g-main-sider"
-                            collapsible
-                            collapsed={this.state.collapsed}
-                            onCollapse={this.onCollapse.bind(this)}
-                        >
-                            <Menu theme="dark" defaultSelectedKeys={[this.state.defaultSelectedKeys]} mode="inline" onClick={this.menuClickHandle.bind(this)}>
-                                <Menu.Item key="marketingHistory">
-                                    <Icon type="table"/>
-                                    <span>营销匹配历史</span>
-                                </Menu.Item>
-                                <Menu.Item key="marketingActivities">
-                                    <Icon type="table"/>
-                                    <span>营销活动</span>
-                                </Menu.Item>
-                                <Menu.Item key="noteGroup">
-                                    <Icon type="table"/>
-                                    <span>短信群发</span>
-                                </Menu.Item>
-                                <Menu.Item key="targetNumber">
-                                    <Icon type="table"/>
-                                    <span>目标客户数</span>
-                                </Menu.Item>
-                                <Menu.Item key="feedback">
-                                    <Icon type="table"/>
-                                    <span>营销反馈</span>
-                                </Menu.Item>
-                            </Menu>
-                        </Sider>
-                        <Layout className="g-main-body-right">
-                            <CatchErrorBoundary>
-                                <div className="g-main-content">
-                                    <Switch>
-                                        <Route path={`${this.props.match.path}/marketingHistory`} component={MarketingHistory}/>
-                                        <Route path={`${this.props.match.path}/marketingActivities`} component={MarketingActivities}/>
-                                        <Route path={`${this.props.match.path}/noteGroup`} component={NoteGroup}/>
-                                        <Route path={`${this.props.match.path}/targetNumber`} component={TargetNumber}/>
-                                        <Route path={`${this.props.match.path}/feedback`} component={Feedback}/>
-                                        <Redirect to='/error'/>
-                                    </Switch>
-                                </div>
-                            </CatchErrorBoundary>
-                            <Footer className="g-main-footer">
-                                亚信科技 ©2018 Created by obc
-                            </Footer>
-                        </Layout>
-                    </Layout>
-                </Layout>
-            </div>
+            <CatchErrorBoundary>
+                <div>{this.props.count}</div>
+                <button name="increment" onClick={this.handlClick.bind(this)}>click increment</button>
+                <button name="decrement" onClick={this.handlClick.bind(this)}>click decrement</button>
+                <button name="multiply" onClick={this.handlClick.bind(this)}>click multiply</button>
+                <Link to="/">unAunth</Link>
+            </CatchErrorBoundary>
         );
     }
 }

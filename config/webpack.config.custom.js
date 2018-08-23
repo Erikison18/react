@@ -32,8 +32,7 @@ function common(config) {
     */
     config.resolve.alias['@src'] = path.join(__dirname, '../src');
     config.resolve.alias['@redux'] = path.join(__dirname, '../src/redux');
-    config.resolve.alias['@actions'] = path.join(__dirname, '../src/redux/actions');
-    config.resolve.alias['@reducers'] = path.join(__dirname, '../src/redux/reducers');
+    config.resolve.alias['@models'] = path.join(__dirname, '../src/redux/models');
     config.resolve.alias['@middleware'] = path.join(__dirname, '../src/redux/middleware');
     config.resolve.alias['@components'] = path.join(__dirname, '../src/components');
     config.resolve.alias['@layout'] = path.join(__dirname, '../src/components/layout');

@@ -1,7 +1,8 @@
 import {
     createStore,
     applyMiddleware,
-    compose
+    compose,
+    combineReducers
 } from 'redux';
 
 import {
@@ -24,7 +25,9 @@ import {
     localstorageStates
 } from './config';
 
-import rootReducer from './reducers';
+import * as reducers from './models';
+
+let rootReducer = combineReducers(reducers);
 
 let applyMiddlewares = [
     promiseMiddleware({
