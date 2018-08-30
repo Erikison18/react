@@ -35,7 +35,7 @@ let applyMiddlewares = [
         promiseTypeDelimiter
     }),
     loadingBarMiddleware({
-        promiseTypeSuffixes
+        promiseTypeSuffixes,
     }),
     createLogger(),
     filterActionType(),

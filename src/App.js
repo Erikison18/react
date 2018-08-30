@@ -36,6 +36,10 @@ let UnAuthLayout = RouterLoadable({
     loader: () =>
         import ('@components/layout/unAuthLayout/unAuthLayout.jsx'),
 });
+let Complex = RouterLoadable({
+    loader: () =>
+        import ('@components/layout/complex/complex.jsx'),
+});
 let ErrorComponent = RouterLoadable({
     loader: () =>
         import ('@components/common/error/error.jsx'),
@@ -80,6 +84,7 @@ class App extends Component {
                             <Switch>
                                 <Route path='/' exact={true} component={UnAuthLayout}/>
                                 <Route path='/auth' component={AuthLayout} />
+                                <Route path='/complex' component={Complex} />
                                 <Route path='/error' exact={true} component={ErrorComponent}/>
                                 <Redirect to='/error'/>
                             </Switch>

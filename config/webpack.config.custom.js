@@ -1,6 +1,7 @@
 const path = require('path');
 const autoprefixer = require('autoprefixer');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const es3ifyPlugin = require('es3ify-webpack-plugin');
 const webpack = require('webpack');
 const paths = require('./paths');
 
@@ -64,6 +65,7 @@ exports.dev = function(config) {
 
     config = common(config);
 
+    //添加less-loader
     config.module.rules[1].oneOf.push({
         test: /\.less$/,
         use: [
@@ -96,6 +98,14 @@ exports.dev = function(config) {
             }
         ]
     });
+
+    //解决ie兼容
+    // config.module.rules.push({
+    //     test: /.js$/,
+    //     enforce: 'post', // post-loader处理
+    //     loader: 'es3ify-loader'
+    // });
+    config.plugins.push(new es3ifyPlugin());
 
     return config;
 
