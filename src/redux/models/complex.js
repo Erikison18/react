@@ -9,7 +9,7 @@ function request(num=1){
     return new Promise((resolve)=>{
         setTimeout(()=>{
             resolve(num);
-        },1000)
+        },3000)
     })
 
 }

@@ -1,7 +1,7 @@
 import {
     createActions,
     handleActions,
-    combineActions
+    // combineActions
 } from 'redux-actions';
 
 //申明actiontor 传入的属性key就是action type

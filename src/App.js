@@ -89,13 +89,13 @@ class App extends Component {
                         <Router>
                             <CatchErrorBoundary>
                                 <ul>
-                                    <li><Link to='/auth'>简单的redux例子</Link></li>
-                                    <li><Link to='/'>简单的async redux例子</Link></li>
+                                    <li><Link to='/'>简单的redux例子</Link></li>
+                                    <li><Link to='/unauth'>简单的async redux例子</Link></li>
                                     <li><Link to='/complex'>一个稍复杂的例子（redux models包含多个reduce的例子、多个action关联）</Link></li>
                                 </ul>
                                 <Switch>
-                                    <Route path='/' exact={true} component={UnAuthLayout}/>
-                                    <Route path='/auth' component={AuthLayout} />
+                                    <Route path='/' exact={true} component={AuthLayout} />
+                                    <Route path='/unauth' component={UnAuthLayout}/>
                                     <Route path='/complex' component={Complex} />
                                     <Route path='/error' exact={true} component={ErrorComponent}/>
                                     <Redirect to='/error'/>
