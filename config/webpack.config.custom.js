@@ -105,7 +105,7 @@ exports.dev = function(config) {
     //     enforce: 'post', // post-loader处理
     //     loader: 'es3ify-loader'
     // });
-    config.plugins.push(new es3ifyPlugin());
+    // config.plugins.push(new es3ifyPlugin());
 
     return config;
 
@@ -163,6 +163,8 @@ exports.prod = function(config, {
         )
         // Note: this won't work without `new ExtractTextPlugin()` in `plugins`.
     });
+
+    config.plugins.push(new es3ifyPlugin());
 
     return config;
 }

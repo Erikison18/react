@@ -3,10 +3,14 @@ function createThunkMiddleware(extraArgument) {
     return function (next) {
       return function (action) {
         if (typeof action.payload === 'function') {
-          return next({
-            payload:action.payload(dispatch, getState, extraArgument),
-            type:action.type
-          })
+          let nextPayload = action.payload(dispatch, getState, extraArgument);
+          if(nextPayload)
+            return next({
+              payload:nextPayload,
+              type:action.type
+            })
+          else
+            return
         }
 
         return next(action);

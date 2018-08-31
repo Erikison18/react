@@ -16,21 +16,17 @@ function request(num=1){
 
 //第一步，申明action 传入的属性key就是action type，并导出action
 export const actiontor = createActions({
-    add(payload){
-        return function (dispatch){
+    reduce:(payload) => request(-payload),
+    add(payload){//如果我们需要结合其它action做操作
+        return async function (dispatch){
             dispatch(actiontor.loadingStatus(true));
-            return request(payload)
-                .then((res)=>{
-                    dispatch(actiontor.loadingStatus(false));
-                    return res
-                })
+            let res =  await request(payload);
+            dispatch(actiontor.loadingStatus(false));
+            return res
         }
     },
-    reduce:(payload) => request(-payload),
     loadingStatus:(payload) => payload
 });
-
-console.log(actiontor.add(123));
 
 //第二步，reducer 会被对应属性key的action 触发
 const counts = handleActions({
@@ -49,7 +45,7 @@ export default combineReducers({
 });
 
 /*
- *我们的redux编码风格用 ducks-modular-redux 提议 结合redux-actions的拓展 https://github.com/erikras/ducks-modular-redux
+ *我们的redux编码风格参照 ducks-modular-redux 提议 结合redux-actions的拓展 https://github.com/erikras/ducks-modular-redux
  *1、一个功能相关action和reducer统一到models里
  *2、actiontor通过export导出
  *3、reducer通过export default导出

@@ -3,7 +3,6 @@ import React, {
 } from 'react';
 
 import {
-    Link,
     withRouter
 } from 'react-router-dom';
 
@@ -16,11 +15,12 @@ import {
 
 /*
 *错误边界捕获
+*每个拥有router或者子router的位置都得包裹一个错误边界捕获的组件，防止整个应用垮掉或带来的风险操作
 */
 import CatchErrorBoundary from '@common/catchErrorBoundary/catchErrorBoundary.jsx';
 
 import { actiontor } from '@models/complex.js';
-// console.log(actiontor.actionType);
+
 /*
 组件AuthLayout连接到store，
 通过bindActionCreators把action和dispanth合成一个fun，方便调用。你也可以不传入connect的第二个参数结合bindActionCreators完成上述操作。
@@ -47,15 +47,12 @@ export default class AuthLayout extends Component {
     }
 
     render() {
-        console.log(this.props)
         return (
             <CatchErrorBoundary>
-                <div>{this.props.counts}</div>
+                <div>{this.props.counts.toString()}</div>
                 <div>loading:{this.props.loading.toString()}</div>
                 <button name="increment" onClick={this.handlClick.bind(this)}>click increment</button>
                 <button name="decrement" onClick={this.handlClick.bind(this)}>click decrement</button>
-                <button name="multiply" onClick={this.handlClick.bind(this)}>click multiply</button>
-                <Link to="/">unAunth</Link>
             </CatchErrorBoundary>
         );
     }

@@ -12,7 +12,7 @@ export const actiontor = createActions({
 });
 
 //申明reduce 传入的属性key就是action type对应起来，就是每次dispanth action type 所对应的操作
-export const reducer = handleActions({
+export default handleActions({
     increment: (state, action) => state + action.payload,
     decrement: (state, action) => state + action.payload,
     multiply: (state, action) => state * action.payload

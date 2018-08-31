@@ -6,7 +6,8 @@ import {
     HashRouter as Router,
     Route,
     Redirect,
-    Switch
+    Switch,
+    Link
 } from 'react-router-dom';
 
 import {
@@ -22,6 +23,11 @@ import 'moment/locale/zh-cn';
 import zh_CN from 'antd/lib/locale-provider/zh_CN';
 import configureStore from './redux/createStore.js';
 import ProgressBar from '@common/progressBar/progressBar.jsx';
+/*
+*错误边界捕获
+*每个拥有router或者子router的位置都得包裹一个错误边界捕获的组件，防止整个应用垮掉或带来的风险操作
+*/
+import CatchErrorBoundary from '@common/catchErrorBoundary/catchErrorBoundary.jsx';
 /*
 *懒加载模块components
 */
@@ -81,13 +87,20 @@ class App extends Component {
                     <div>
                         <ProgressBar/>
                         <Router>
-                            <Switch>
-                                <Route path='/' exact={true} component={UnAuthLayout}/>
-                                <Route path='/auth' component={AuthLayout} />
-                                <Route path='/complex' component={Complex} />
-                                <Route path='/error' exact={true} component={ErrorComponent}/>
-                                <Redirect to='/error'/>
-                            </Switch>
+                            <CatchErrorBoundary>
+                                <ul>
+                                    <li><Link to='/auth'>简单的redux例子</Link></li>
+                                    <li><Link to='/'>简单的async redux例子</Link></li>
+                                    <li><Link to='/complex'>一个稍复杂的例子（redux models包含多个reduce的例子、多个action关联）</Link></li>
+                                </ul>
+                                <Switch>
+                                    <Route path='/' exact={true} component={UnAuthLayout}/>
+                                    <Route path='/auth' component={AuthLayout} />
+                                    <Route path='/complex' component={Complex} />
+                                    <Route path='/error' exact={true} component={ErrorComponent}/>
+                                    <Redirect to='/error'/>
+                                </Switch>
+                            </CatchErrorBoundary>
                         </Router>
                     </div>
                 </Provider>

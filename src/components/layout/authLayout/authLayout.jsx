@@ -3,7 +3,6 @@ import React, {
 } from 'react';
 
 import {
-    Link,
     withRouter
 } from 'react-router-dom';
 
@@ -13,12 +12,6 @@ import {
 import {
     bindActionCreators
 } from 'redux';
-
-/*
-*错误边界捕获
-*/
-import CatchErrorBoundary from '@common/catchErrorBoundary/catchErrorBoundary.jsx';
-
 /*
 *懒加载模块components
 */
@@ -55,13 +48,13 @@ export default class AuthLayout extends Component {
 
     render() {
         return (
-            <CatchErrorBoundary>
+            <div>
+                <div>count被缓存到了locastorage</div>
                 <div>{this.props.count}</div>
                 <button name="increment" onClick={this.handlClick.bind(this)}>click increment</button>
                 <button name="decrement" onClick={this.handlClick.bind(this)}>click decrement</button>
                 <button name="multiply" onClick={this.handlClick.bind(this)}>click multiply</button>
-                <Link to="/">unAunth</Link>
-            </CatchErrorBoundary>
+            </div>
         );
     }
 }

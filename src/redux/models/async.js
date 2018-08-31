@@ -11,7 +11,7 @@ export const actiontor = createActions({
     fetchDemo:() => fetch('/subitemSendHistory/messageToday')
 })
 
-export const reducer = handleActions({
+export default handleActions({
     fetchDemo: (state, action) => Object.assign({}, state, action)
 }, {})
 
