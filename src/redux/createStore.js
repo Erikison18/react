@@ -17,19 +17,23 @@ import {
 } from 'redux-localstorage-simple';
 
 import promiseMiddleware from 'redux-promise-middleware';
+import thunkMiddleware from '@middleware/reduxThunkPayload';
 import filterActionType from '@middleware/filterActionType';
 
 import {
     promiseTypeSuffixes,
     promiseTypeDelimiter,
-    localstorageStates
+    localstorageStates,
+    reduxLoggerConfig
 } from './config';
 
 import * as reducers from './models';
+// console.log(thunkMiddleware);
 
 let rootReducer = combineReducers(reducers);
 
 let applyMiddlewares = [
+    thunkMiddleware,
     promiseMiddleware({
         promiseTypeSuffixes,
         promiseTypeDelimiter
@@ -37,7 +41,7 @@ let applyMiddlewares = [
     loadingBarMiddleware({
         promiseTypeSuffixes,
     }),
-    createLogger(),
+    createLogger(reduxLoggerConfig),
     filterActionType(),
     save({
         states: localstorageStates

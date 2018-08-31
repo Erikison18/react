@@ -1,5 +1,5 @@
 /*author dengsw
- *description 处理掉redux-promise-middleware 带来的action type状态拼接
+ *description 处理掉redux-promise-middleware 带来的action type fulfilled状态拼接
  */
 
 import {
@@ -7,9 +7,9 @@ import {
     promiseTypeDelimiter
 } from '@redux/config';
 
-let [PENDING, FULFILLED, REJECTED] = promiseTypeSuffixes;
+let FULFILLED = promiseTypeSuffixes[1];
 
-const reg = new RegExp(`${promiseTypeDelimiter.replace(/([\s\S])/g,'\\$1')}(${PENDING.replace(/([\s\S])/g,'\\$1')}|${FULFILLED.replace(/([\s\S])/g,'\\$1')}|${REJECTED.replace(/([\s\S])/g,'\\$1')})$`);
+const reg = new RegExp(`${promiseTypeDelimiter.replace(/([\s\S])/g,'\\$1')}(${FULFILLED.replace(/([\s\S])/g,'\\$1')})$`);
 
 export default function filterActionType(config) {
     return (store) => (next) => (action) => {
