@@ -82,6 +82,10 @@ project
 		
 ### 开发约定
 
+- 项目健壮性约定
+	- 组件中含route组件的位置，请使用 ｀@common/catchErrorBoundary/catchErrorBoundary.jsx｀错误捕获组件包裹，防止整个应用垮掉或带来的风险操作。
+	- 子路由components通过 `@common/routerLoadable/routerLoadable.jsx` 做分片处理并且统一页面的加载状态展示。
+
 - webpack约定
 	- webpack配置功能的新增在 `project/config/webpack.config.custom.js` 下进行。
 	- 有路径更改或者发布位置改变的在 `project/config/paths.js` 中 resolveApp 方法中进行配置，在非特殊情况下不去改动配置逻辑。
@@ -94,10 +98,6 @@ project
 - 公共组件约定
 	- 组件开发需带上 `prop-types` 进行类型管控。
 	- 拓展第三方组件时编写的资源（less、img）集中到到自定义组件下进行管理
-
-- 项目健壮性约定
-	- 组件中含route组件的位置，请使用 ｀@common/catchErrorBoundary/catchErrorBoundary.jsx｀错误捕获组件包裹，防止整个应用垮掉或带来的风险操作。
-	- 子路由components通过 `@common/routerLoadable/routerLoadable.jsx` 做分片处理并且统一页面的加载状态展示。
 	
 - redux约定
 	- action、reducer模版代码统一在models目录中用redux-action方案进行编写。
