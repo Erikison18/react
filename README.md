@@ -81,19 +81,31 @@ project
 		- `localstorageStatesConfig.js` 统一管理处理标注的redux state 存储到localstorage配置文件
 		
 ### 开发约定
-1. webpack配置功能的新增在 `project/config/webpack.config.custom.js` 下进行。
-2. 有路径更改或者发布位置改变的在 `project/config/paths.js` 中 resolveApp 方法中进行配置，在非特殊情况下不去改动配置逻辑。
-3. 应用逻辑开发的公共资源在 `project/src/public` 下，而非 `project/public` 下。
-4. 公共components开发目录在 `project/src/components/common`。
-5. 组件开发需带上 `prop-types` 进行类型管控。
-5. 第三方components插入到自定义目标组件children components下进行管理。
-6. 不同布局类型的页面入口统一从 `project/src/components/layout` 开始。
-7. action、reducers模版代码统一在models目录中用redux-action工具编写。
-8. 在编写redux models时默认导出actiontor和reducer。
-9. redux models 中的reducer以export `{ reducer as xxx } from './xxx.js';` 的形式集合。
-8. 需要进行本地存储localstorage的，通过redux state统一在 `project/src/redux/localstorageStatesConfig.js` 中进行配置。
-9. 子路由components通过 `@common/routerLoadable/routerLoadable.jsx` 做分片处理，统一页面的加载状态展示。
-10. 异步请求使用统一归纳到redux models `异步action` 中，为页面增加progress-bar状态。
+
+- webpack约定
+	- webpack配置功能的新增在 `project/config/webpack.config.custom.js` 下进行。
+	- 有路径更改或者发布位置改变的在 `project/config/paths.js` 中 resolveApp 方法中进行配置，在非特殊情况下不去改动配置逻辑。
+
+- 目录约定
+	- 应用逻辑开发的公共资源在 `project/src/public` 下，而非 `project/public` 下。
+	- 公共components开发目录在 `project/src/components/common`。
+	- 不同布局类型的页面入口统一从 `project/src/components/layout` 开始。
+
+- 公共组件约定
+	- 组件开发需带上 `prop-types` 进行类型管控。
+	- 拓展第三方组件时编写的资源（less、img）集中到到自定义组件下进行管理
+
+- 项目健壮性约定
+	- 组件中含route组件的位置，请使用 ｀@common/catchErrorBoundary/catchErrorBoundary.jsx｀错误捕获组件包裹，防止整个应用垮掉或带来的风险操作。
+	- 子路由components通过 `@common/routerLoadable/routerLoadable.jsx` 做分片处理并且统一页面的加载状态展示。
+	
+- redux约定
+	- action、reducer模版代码统一在models目录中用redux-action方案进行编写。
+	- models 中 action由 export导出,reducer由 export defualt导出。风格参照 `ducks-modular-redux` 提议 结合redux-actions的拓展。
+	- reducer `@/models/index.js` 下进行收集，如`export complex from './complex.js';`。
+	- 需要进行缓存的状态值可以通过 `@redux/localstorageStatesConfig.js` 下进行配置。（建议缓存的数据对象为其它router下前置请求状态类参数）
+	- 异步请求使用统一归纳到redux models `异步action` 中，为页面增加progress-bar状态。
+
 
 ### 相关文档
 
@@ -108,6 +120,7 @@ project
 * [react-redux-loading-bar](https://github.com/mironov/react-redux-loading-bar)
 * [redux-localstorage-simple](https://github.com/kilkelly/redux-localstorage-simple)
 * [fetch](https://developer.mozilla.org/zh-CN/docs/Web/API/Fetch_API/Using_Fetch)
+* [ducks-modular-redux](https://github.com/erikras/ducks-modular-redux)
 
 ### 技术栈脑图
 * [er.png](../er.png)
