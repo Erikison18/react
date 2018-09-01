@@ -25,7 +25,7 @@ import {actiontor}  from '@models/async.js';
 class UnAuthLayout extends Component {
     componentWillMount() {
         // this.props.history.push('/auth/marketingHistory/historyQuery');
-        this.props.fetchDemo();
+        this.props.asyncFetchDemo();
     }
     render() {
         // console.log(this.props);

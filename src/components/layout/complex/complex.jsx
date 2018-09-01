@@ -40,9 +40,9 @@ export default class AuthLayout extends Component {
     */
     handlClick(e){
         if(e.target.name==='increment'){
-            this.props.add(1);
+            this.props.complexAdd(1);
         }else if(e.target.name==='decrement'){
-            this.props.reduce(1);
+            this.props.complexReduce(1);
         }
     }
 

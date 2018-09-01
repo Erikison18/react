@@ -38,15 +38,16 @@ export default class AuthLayout extends Component {
     */
     handlClick(e){
         if(e.target.name==='increment'){
-            this.props.increment(1);
+            this.props.countIncrement(1);
         }else if(e.target.name==='decrement'){
-            this.props.decrement(1);
+            this.props.countDecrement(1);
         }else if(e.target.name==='multiply'){
-            this.props.multiply(2);
+            this.props.countMultiply(2);
         }
     }
 
     render() {
+        console.log(this.props);
         return (
             <div>
                 <div>count被缓存到了locastorage</div>
