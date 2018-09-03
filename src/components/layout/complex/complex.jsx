@@ -47,6 +47,7 @@ export default class AuthLayout extends Component {
     }
 
     render() {
+        console.log(this.props);
         return (
             <CatchErrorBoundary>
                 <div>{this.props.counts.toString()}</div>
