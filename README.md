@@ -103,7 +103,7 @@ project
 	- action、reducer模版代码统一在models目录中用 `redux-action` 方案进行编写---定义action type格式为 `filename_key` ，防止重复定义引起的不可预估的错误。使用时redux-action会将它转换成驼峰形式。
 	- models 中 action由 `export` 导出,reducer由 `export defualt` 导出。风格参照 `ducks-modular-redux` 提议 结合redux-actions的拓展。
 	- reducer `@/models/index.js` 下进行收集，如`export complex from './complex.js';`。
-	- 需要进行缓存的状态值可以通过 `@redux/localstorageStatesConfig.js` 下进行配置。（建议缓存的数据对象为其它router下前置请求状态类参数）
+	- 需要进行缓存的状态值可以通过 `@redux/localstorageStatesConfig.js` 下进行配置。
 	- 异步请求使用统一归纳到redux models `异步action` 中，为页面增加progress-bar状态。
 
 
