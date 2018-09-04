@@ -16,7 +16,7 @@ import {actiontor}  from '@models/async.js';
 
 /*
 组件AuthLayout连接到store，
-通过bindActionCreators把action和dispanth聚合一个fun，方便调用。你也可以不传入connect的第二个参数
+通过bindActionCreators把action和dispanth合并，方便调用。你也可以不传入connect的第二个参数,在组件中通过dispanth结合action使用
 */
 @connect(
     ({asyncDemo}) => ({asyncDemo}),

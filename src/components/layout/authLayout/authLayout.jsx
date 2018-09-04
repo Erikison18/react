@@ -21,7 +21,7 @@ import {actiontor}  from '@models/count.js';
 
 /*
 组件AuthLayout连接到store，
-通过bindActionCreators把action和dispanth合成一个fun，方便调用。你也可以不传入connect的第二个参数结合bindActionCreators完成上述操作。
+通过bindActionCreators把action和dispanth合并，方便调用。你也可以不传入connect的第二个参数结合bindActionCreators完成上述操作,在组件中通过dispanth结合action使用。
 */
 @connect(
     ({count}) => ({count}),
