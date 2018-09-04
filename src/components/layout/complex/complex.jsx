@@ -21,6 +21,7 @@ import CatchErrorBoundary from '@common/catchErrorBoundary/catchErrorBoundary.js
 
 import { actiontor } from '@models/complex.js';
 
+
 /*
 组件AuthLayout连接到store，
 通过bindActionCreators把action和dispanth合成一个fun，方便调用。你也可以不传入connect的第二个参数结合bindActionCreators完成上述操作。
@@ -32,7 +33,9 @@ import { actiontor } from '@models/complex.js';
 @withRouter
 export default class AuthLayout extends Component {
 
-    componentDidMount() {}
+    componentDidMount() {
+
+    }
 
     /*
     这里假设获取 count的值和操作count的值在不同的组件中，并且操作count的组件不是获取count组件的父级
