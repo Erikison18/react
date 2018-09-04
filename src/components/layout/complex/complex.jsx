@@ -13,12 +13,6 @@ import {
     bindActionCreators
 } from 'redux';
 
-/*
-*错误边界捕获
-*每个拥有router或者子router的位置都得包裹一个错误边界捕获的组件，防止整个应用垮掉或带来的风险操作
-*/
-import CatchErrorBoundary from '@common/catchErrorBoundary/catchErrorBoundary.jsx';
-
 import { actiontor } from '@models/complex.js';
 
 
@@ -52,12 +46,12 @@ export default class AuthLayout extends Component {
     render() {
         console.log(this.props);
         return (
-            <CatchErrorBoundary>
+            <div>
                 <div>{this.props.counts.toString()}</div>
                 <div>loading:{this.props.loading.toString()}</div>
                 <button name="increment" onClick={this.handlClick.bind(this)}>click increment</button>
                 <button name="decrement" onClick={this.handlClick.bind(this)}>click decrement</button>
-            </CatchErrorBoundary>
+            </div>
         );
     }
 }
