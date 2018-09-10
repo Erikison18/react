@@ -8,6 +8,7 @@ import 'react-redux';
 import 'prop-types';
 // import 'fetch-default';
 
+
 (function(win) {
 
     let oldThen = Promise.prototype.then;

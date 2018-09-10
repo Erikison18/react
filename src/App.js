@@ -22,16 +22,16 @@ import {
 import 'moment/locale/zh-cn';
 import zh_CN from 'antd/lib/locale-provider/zh_CN';
 import configureStore from './redux/createStore.js';
-import ProgressBar from '@common/progressBar/progressBar.jsx';
+import ProgressBar from '@common/progressBar';
 /*
 *错误边界捕获
 *每个拥有router或者子router的位置都得包裹一个错误边界捕获的组件，防止整个应用垮掉或带来的风险操作
 */
-import CatchErrorBoundary from '@common/catchErrorBoundary/catchErrorBoundary.jsx';
+import CatchErrorBoundary from '@common/catchErrorBoundary';
 /*
 *懒加载模块components
 */
-import RouterLoadable from '@common/routerLoadable/routerLoadable.jsx';
+import RouterLoadable from '@common/routerLoadable';
 import './App.less';
 
 let AuthLayout = RouterLoadable({
@@ -48,7 +48,7 @@ let Complex = RouterLoadable({
 });
 let ErrorComponent = RouterLoadable({
     loader: () =>
-        import ('@components/common/error/error.jsx'),
+        import ('@components/common/error'),
 });
 
 fetch.default({

@@ -2,8 +2,10 @@ const path = require('path');
 const autoprefixer = require('autoprefixer');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const es3ifyPlugin = require('es3ify-webpack-plugin');
+const InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin');
 const webpack = require('webpack');
 const paths = require('./paths');
+const {iconFontCDNUrl,proIconFontDirectory,iconfontFileName} = require('./config.custom.js');
 
 function common(config) {
 
@@ -24,11 +26,6 @@ function common(config) {
     }
 
     /*
-    output
-    */
-    config.output.filename = 'static/js/[name].js';
-
-    /*
     alias
     */
     config.resolve.alias['@src'] = path.join(__dirname, '../src');
@@ -41,6 +38,7 @@ function common(config) {
     config.resolve.alias['@js'] = path.join(paths.appSrc, 'public', '/js');
     config.resolve.alias['@style'] = path.join(paths.appSrc, 'public', '/style');
     config.resolve.alias['@img'] = path.join(paths.appSrc, 'public', '/img');
+    config.resolve.alias['@other'] = path.join(paths.appSrc, 'public', '/other');
 
     /*
     extensions
@@ -52,10 +50,6 @@ function common(config) {
     */
     config.module.rules[1].oneOf[3].exclude.push(/\.less$/);
 
-    config.plugins.push(new webpack.optimize.CommonsChunkPlugin({
-        name: 'vendors',
-        filename: path.join('static/js/[name].js')
-    }))
 
     return config;
 
@@ -64,6 +58,11 @@ function common(config) {
 exports.dev = function(config) {
 
     config = common(config);
+
+    /*
+    output
+    */
+    config.output.filename = 'static/js/[name].js';
 
     //添加less-loader
     config.module.rules[1].oneOf.push({
@@ -94,10 +93,22 @@ exports.dev = function(config) {
                     ]
                 }
             }, {
-                loader: require.resolve('less-loader')
+                loader: require.resolve('less-loader'),
             }
         ]
     });
+
+
+    //plugins
+    config.plugins.push(new webpack.optimize.CommonsChunkPlugin({
+        name: 'vendors',
+        filename: path.join('static/js/[name].js')
+    }));
+    //iconfont配置
+    config.plugins.push(new InterpolateHtmlPlugin({
+        ICON_FONT_SOUCE:iconFontCDNUrl?`<link rel="stylesheet" href="${iconFontCDNUrl}">`:''
+    }));
+
 
     //解决ie兼容
     // config.module.rules.push({
@@ -116,9 +127,11 @@ exports.prod = function(config, {
     extractTextPluginOptions
 }) {
 
+
     config = common(config);
 
-    // config.output.path = path.join(__dirname, '../webapp');
+    //添加本地iconfont
+    config.entry.vendors.unshift(require.resolve(`${proIconFontDirectory}/${iconfontFileName}.css`));
 
     config.module.rules[1].oneOf.push({
         test: /\.less$/,
@@ -164,7 +177,21 @@ exports.prod = function(config, {
         // Note: this won't work without `new ExtractTextPlugin()` in `plugins`.
     });
 
+
+    //plugins
+    config.plugins.push(new webpack.optimize.CommonsChunkPlugin({
+        name: 'vendors',
+        filename: path.join('static/js/[name].[chunkhash:8].js')
+    }));
+
+    config.plugins.push(new InterpolateHtmlPlugin({
+        ICON_FONT_SOUCE:''
+    }));
+
     config.plugins.push(new es3ifyPlugin());
 
     return config;
 }
+
+
+
