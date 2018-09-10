@@ -10,3 +10,8 @@ module.exports = {
     iconfontFileName:'iconfont'
 }
 
+/*
+待新增功能：
+1、分发es6版本前端资源
+2、reduce index 自动生成
+*/
