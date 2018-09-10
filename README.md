@@ -35,6 +35,8 @@ $ npm run test
 project
 	├── config
 	│		├──	paths.js
+	│		├──	downloadIconFontFile.js
+	│		├──	config.custom.js
 	│		└──	webpack.config.custom.js
 	├── public
 	│		├──	index.html
@@ -65,6 +67,8 @@ project
 
 - `config` create-react-app 默认配置和自定义配置
 	- `paths.js` 路径相关配置
+	- `downloadIconFontFile.js` iconfont下载脚本
+	- `config.custom.js` 自定义参数配置文件
 	- `webpack.config.custom.js` 自定义webpack配置
 - `public` create-react-app 公共资源目录(非应用逻辑开发公共资源目录)
 	- `index.html` 
