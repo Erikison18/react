@@ -131,7 +131,8 @@ exports.prod = function(config, {
     config = common(config);
 
     //添加本地iconfont
-    config.entry.vendors.unshift(require.resolve(`${proIconFontDirectory}/${iconfontFileName}.css`));
+    if(iconFontCDNUrl && proIconFontDirectory && iconfontFileName)
+        config.entry.vendors.unshift(require.resolve(`${proIconFontDirectory}/${iconfontFileName}.css`));
 
     config.module.rules[1].oneOf.push({
         test: /\.less$/,

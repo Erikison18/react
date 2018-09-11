@@ -4,6 +4,10 @@ const {iconFontCDNUrl,proIconFontDirectory,iconfontFileName} = require('./config
 // const stream = require('stream');
 // const util = require('util');
 
+if(iconFontCDNUrl)return console.log('iconFontCDNUrl is undefined');
+if(proIconFontDirectory)return console.log('proIconFontDirectory is undefined');
+if(iconfontFileName)return console.log('iconfontFileName is undefined');
+
 let getKeyWordsReg = /\/\/at\.alicdn\.com\/t\/[A-Za-z\_\d]+(?=\.)/;
 let replaceKeyWordsReg = new RegExp(getKeyWordsReg,'g');
 let fileType = ['svg','ttf','woff','eot'];
