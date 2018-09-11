@@ -1,5 +1,3 @@
-import 'babel-polyfill';
-import 'raf/polyfill';
 import 'react';
 import 'react-dom';
 import 'react-router-dom';
