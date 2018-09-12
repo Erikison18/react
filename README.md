@@ -93,6 +93,7 @@ project
 - webpack约定
 	- webpack配置功能的新增在 `project/config/webpack.config.custom.js` 下进行。
 	- 有路径更改或者发布位置改变的在 `project/config/paths.js` 中 resolveApp 方法中进行配置，在非特殊情况下不去改动配置逻辑。
+	- 在 `config.custom.js` 中进行项目自定义项的参数配置。如：iconfont CDN地址的配置（注意ui对iconfont每次改动都会生成新的CDN地址，记得及时替换哟。）
 
 - 目录约定
 	- 应用逻辑开发的公共资源在 `project/src/public` 下，而非 `project/public` 下。
