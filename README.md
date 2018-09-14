@@ -105,7 +105,7 @@ project
 	- 拓展第三方组件时编写的资源（less、img）集中到到自定义组件下进行管理
 	
 - redux约定
-	- action、reducer模版代码统一在models目录中用 `redux-action` 方案进行编写---定义action type格式为 `filename_key` ，防止重复定义引起的不可预估的错误。使用时redux-action会将它转换成驼峰形式。
+	- action、reducer模版代码统一在models目录中用 `redux-action` 方案进行编写---定义action type格式为 `filename_key` ，防止不同文件action type重复定义引起的不可预估的错误。使用时redux-action会将它转换成驼峰形式。
 	- models 中 action由 `export` 导出,reducer由 `export defualt` 导出。风格参照 `ducks-modular-redux` 提议 结合redux-actions的拓展。
 	- reducer `@/models/index.js` 下进行收集，如`export complex from './complex.js';`。
 	- 需要进行缓存的状态值可以通过 `@redux/localstorageStatesConfig.js` 下进行配置。
