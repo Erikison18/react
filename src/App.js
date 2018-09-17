@@ -59,7 +59,7 @@ fetch.default({
         'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
     },
     beforeSend() {
-        if (!/http:\/\//.test(this.uri)) this.uri = '/ynjc' + this.uri;
+        if (!/http:\/\//.test(this.uri)) this.uri = `${process.env.HOME_PAGE}${this.uri}`;
     },
     dataFilter(response) {
 
