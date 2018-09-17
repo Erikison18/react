@@ -50,7 +50,7 @@ export default class AuthLayout extends Component {
         console.log(this.props);
         return (
             <div>
-                <i class="icon iconfont icon-ugly-nav"></i>
+                <i className="icon iconfont icon-ugly-nav"></i>
                 <div>count被缓存到了locastorage</div>
                 <div>{this.props.count}</div>
                 <button name="increment" onClick={this.handlClick.bind(this)}>click increment</button>
