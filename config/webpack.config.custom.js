@@ -130,8 +130,8 @@ exports.prod = function(config, {
     config = common(config);
 
     //添加polyfill
-    config.entry.vendors.unshift(require.resolve('babel-polyfill'));
-    config.entry.vendors.unshift(require.resolve('raf/polyfill'));
+    // config.entry.vendors.unshift(require.resolve('babel-polyfill'));
+    // config.entry.vendors.unshift(require.resolve('raf/polyfill'));
 
     //添加本地iconfont
     if(iconFontCDNUrl && proIconFontDirectory && iconfontFileName)
