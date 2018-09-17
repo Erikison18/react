@@ -63,12 +63,32 @@ fetch.default({
     },
     dataFilter(response) {
 
-        if (!response.ok && !/http:\/\//.test(response.url)) {
-            message.error(`${response.status}\n${response.statusText}`);
-            this.abort();
-        }
+        //排除serviceWorker项
+        if(!/http:\/\//.test(response.url)){
 
-        return response.json();
+            if (!response.ok) {
+                message.error(`${response.status}\n${response.statusText}`);
+                return this.abort();
+            }
+
+            let data = response.json();
+
+            let {code,message:messageDes,messageBody} = data;
+
+            // 未登录
+            // if(data.code === 5000){
+                // store.dispatch(actiontor.loginFlag(false));
+                // return this.abort();
+            // }
+
+            if(code !== 9000){
+                message.error(messageDes);
+                return this.abort();
+            }
+
+            return messageBody
+
+        }
 
     },
     fail(e) {
