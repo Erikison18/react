@@ -5,6 +5,7 @@ const es3ifyPlugin = require('es3ify-webpack-plugin');
 const InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin');
 const webpack = require('webpack');
 const paths = require('./paths');
+const url = require('url');
 const {iconFontCDNUrl,proIconFontDirectory,iconfontFileName} = require('./config.custom.js');
 
 function common(config) {
@@ -49,6 +50,15 @@ function common(config) {
     loader
     */
     config.module.rules[1].oneOf[3].exclude.push(/\.less$/);
+    
+    /*
+    plugin
+    */
+    config.plugins.unshift(new webpack.DefinePlugin({
+        'process.env': {
+            HOME_PAGE: JSON.stringify(url.parse(process.env.npm_package_homepage).pathname)
+        }
+    }));
 
 
     return config;
