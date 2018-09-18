@@ -87,8 +87,8 @@ project
 ### 开发约定
 
 - 项目健壮性约定
-	- 组件中含route组件的位置，请使用 `@common/catchErrorBoundary/catchErrorBoundary.jsx` 错误捕获组件包裹，防止整个应用垮掉或带来的风险操作。
-	- 子路由components通过 `@common/routerLoadable/routerLoadable.jsx` 做分片处理并且统一页面的加载状态展示。
+	- 组件中含route组件的位置，请使用 `@common/catchErrorBoundary` 错误捕获组件包裹，防止整个应用垮掉或带来的风险操作。
+	- 子路由components通过 `@common/routerLoadable` 做分片处理并且统一页面的加载状态展示。
 
 - webpack约定
 	- webpack配置功能的新增在 `project/config/webpack.config.custom.js` 下进行。
