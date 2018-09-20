@@ -114,8 +114,8 @@ import 'prop-types';
 
         let initFetchPromise = oldFetchPromise;
 
-        if (fail) oldFetchPromise = oldFetchPromise.then((response) => response, fail.bind(initFetchPromise));
-        if (dataFilter) oldFetchPromise = oldFetchPromise.then(dataFilter.bind(initFetchPromise));
+        if (fail) oldFetchPromise = oldFetchPromise.then((response) => response,(reject) => fail.call(initFetchPromise,reject));
+        if (dataFilter) oldFetchPromise = oldFetchPromise.then((response) => dataFilter.call(initFetchPromise,response));
 
         return oldFetchPromise;
 
