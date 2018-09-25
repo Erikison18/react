@@ -6,7 +6,8 @@ import {
     HashRouter as Router,
     Route,
     Redirect,
-    Switch
+    Switch,
+    Link
 } from 'react-router-dom';
 
 import {
@@ -31,28 +32,32 @@ import CatchErrorBoundary from '@common/catchErrorBoundary';
 */
 import RouterLoadable from '@common/routerLoadable';
 import './App.less';
-import { actiontor } from '@models/login.js';
+
+let AuthLayout = RouterLoadable({
+    loader: () =>
+        import ('@components/layout/authLayout/authLayout.jsx'),
+});
+
+let UnAuthLayout = RouterLoadable({
+    loader: () =>
+        import ('@components/layout/unAuthLayout/unAuthLayout.jsx'),
+});
+
+let Complex = RouterLoadable({
+    loader: () =>
+        import ('@components/layout/complex/complex.jsx'),
+});
 
 let ErrorComponent = RouterLoadable({
-    loader: () =>
+     loader: () =>
         import ('@components/common/error'),
-});
-
-let SignLayout = RouterLoadable({
-    loader: () =>
-        import ('@components/layout/signLayout'),
-});
-
-let WorkLayout = RouterLoadable({
-    loader: () =>
-        import ('@components/layout/workLayout'),
 });
 
 fetch.default({
     method: 'POST',
     headers: {
         'Accept': 'application/json',
-        'Content-Type': ' application/json',
+        'Content-Type': 'application/json',
     },
     beforeSend() {
         //排除serviceWorker项
@@ -65,6 +70,7 @@ fetch.default({
 
             if (!response.ok) {
                 message.error(`${response.status}\n${response.statusText}`);
+                return {}
             }
 
             let data = await response.json();
@@ -104,11 +110,17 @@ class App extends Component {
                         <ProgressBar/>
                         <Router>
                             <CatchErrorBoundary>
+                                <ul>
+                                    <li><Link to='/'>简单的redux例子</Link></li>
+                                    <li><Link to='/unauth'>简单的async redux例子</Link></li>
+                                    <li><Link to='/complex'>一个稍复杂的例子（redux models包含多个reduce的例子、多个action关联）</Link></li>
+                                </ul>
+
                                 <Switch>
-                                    <Route path='/work' component={WorkLayout}/>
-                                    <Route path='/sign' component={SignLayout}/>
-                                    <Route path='/error' component={ErrorComponent}/>
-                                    <Redirect from='/' to='/work/personage/daylog'/>
+                                    <Route path='/' exact={true} component={AuthLayout} />
+                                    <Route path='/unauth' component={UnAuthLayout}/>
+                                    <Route path='/complex' component={Complex} />
+                                    <Route path='/error' exact={true} component={ErrorComponent}/>
                                     <Redirect to='/error'/>
                                 </Switch>
                             </CatchErrorBoundary>

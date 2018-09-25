@@ -18,20 +18,29 @@ export default class CatchErrorBoundary extends Component {
         let {error,info}=this.state;
 
         if(error)
-            return (
-                <div>
-                    <h1>
-                        Error: {error.toString()}
-                    </h1>
-                    {info &&info.componentStack.split('\n').map(i => {
-                        return (
-                            <div key={i}>
-                                {i}
-                            </div>
-                        );
-                    })}
-                </div>
-            )
+
+            if(process.env.NODE_ENV==='production'){
+                return (
+                    <div>
+                        程序员已经在修复了，稍安勿躁
+                    </div>
+                )
+            }else{
+                return (
+                    <div>
+                        <h1>
+                            Error: {error.toString()}
+                        </h1>
+                        {info &&info.componentStack.split('\n').map(i => {
+                            return (
+                                <div key={i}>
+                                    {i}
+                                </div>
+                            );
+                        })}
+                    </div>
+                )
+            }
 
         return this.props.children
 

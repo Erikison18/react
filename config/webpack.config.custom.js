@@ -50,13 +50,14 @@ function common(config) {
     loader
     */
     config.module.rules[1].oneOf[3].exclude.push(/\.less$/);
-    
+
     /*
     plugin
     */
     config.plugins.unshift(new webpack.DefinePlugin({
         'process.env': {
-            HOME_PAGE: JSON.stringify(url.parse(process.env.npm_package_homepage).pathname)
+            HOME_PAGE: JSON.stringify(url.parse(process.env.npm_package_homepage).pathname),
+            NODE_ENV : JSON.stringify(process.env.NODE_ENV || 'development')
         }
     }));
 
