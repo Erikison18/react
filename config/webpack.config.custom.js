@@ -6,7 +6,7 @@ const InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin');
 const webpack = require('webpack');
 const paths = require('./paths');
 const url = require('url');
-const {iconFontCDNUrl,proIconFontDirectory,iconfontFileName} = require('./config.custom.js');
+const {iconFontCDNUrl,proIconFontDirectory,iconfontFileName,fetchPrefix} = require('./config.custom.js');
 
 function common(config) {
 
@@ -57,7 +57,8 @@ function common(config) {
     config.plugins.unshift(new webpack.DefinePlugin({
         'process.env': {
             HOME_PAGE: JSON.stringify(url.parse(process.env.npm_package_homepage).pathname),
-            NODE_ENV : JSON.stringify(process.env.NODE_ENV || 'development')
+            NODE_ENV : JSON.stringify(process.env.NODE_ENV || 'development'),
+            FETCH_PREFIX: JSON.stringify(fetchPrefix)
         }
     }));
 
