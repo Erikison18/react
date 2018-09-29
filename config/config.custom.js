@@ -7,7 +7,9 @@ module.exports = {
     //发布时iconfont位置
     proIconFontDirectory:path.join(paths.appSrc, 'public', '/other/iconfont'),
     //iconfont生成文件名
-    iconfontFileName:'iconfont'
+    iconfontFileName:'iconfont',
+    //请求前缀
+    fetchPrefix:''
 }
 
 /*
