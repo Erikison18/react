@@ -57,16 +57,16 @@ fetch.default({
     method: 'POST',
     headers: {
         'Accept': 'application/json',
-        'Content-Type': 'application/json',
+        'Content-Type': ' application/json',
     },
     beforeSend() {
         //排除serviceWorker项
-        if (!/http:\/\//.test(this.uri)&&process.env.HOME_PAGE) this.uri = `${process.env.HOME_PAGE}${this.uri}`;
+        if (!/http:\/\//.test(this.uri)&&process.env.HOME_PAGE) this.uri = `${process.env.FETCH_PREFIX}${this.uri}`;
     },
     async dataFilter(response) {
 
         //排除serviceWorker请求文件项
-        if(!/[\s\S]+\.[\s\S]+$/.test(response.url)){
+        if(!/^((ht|f)tps?):\/\/[\s\S]+\/[\s\S]+\.[\s\S]+$/.test(response.url)){
 
             if (!response.ok) {
                 message.error(`${response.status}\n${response.statusText}`);
@@ -74,6 +74,7 @@ fetch.default({
             }
 
             let data = await response.json();
+
             let {code,message:messageDes,messageBody} = data;
 
             //未登录
@@ -82,7 +83,7 @@ fetch.default({
             //     store.dispatch(actiontor.loginFlag(false));
             // }
 
-            if(code !== 9000){
+            if(code !== '9000'){
                 message.error(messageDes);
             }
 
