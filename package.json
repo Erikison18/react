@@ -126,6 +126,5 @@
             "target": "http://10.1.241.103:12345",
             "changeOrigin": true
         }
-    },
-    "homepage": "/ynjc"
+    }
 }

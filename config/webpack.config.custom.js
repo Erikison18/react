@@ -135,7 +135,8 @@ exports.dev = function(config) {
 
 exports.prod = function(config, {
     shouldUseSourceMap,
-    extractTextPluginOptions
+    extractTextPluginOptions,
+    cssFilename
 }) {
 
     config = common(config);
@@ -204,6 +205,15 @@ exports.prod = function(config, {
     }));
 
     config.plugins.push(new es3ifyPlugin());
+
+    if(config.plugins[5] instanceof ExtractTextPlugin){
+        config.plugins[5]=new ExtractTextPlugin({
+            filename:cssFilename,
+            allChunks: true
+        });
+    }else{
+        console.error('ExtractTextPlugin fail!');
+    }
 
     return config;
 }

@@ -205,7 +205,7 @@ module.exports = prodCustom({
                                         },
                                     }],
                                 },
-                                extractTextPluginOptions
+                                extractTextPluginOptions,{allChunks:true}
                             )
                         ),
                         // Note: this won't work without `new ExtractTextPlugin()` in `plugins`.
@@ -283,7 +283,7 @@ module.exports = prodCustom({
         }),
         // Note: this won't work without ExtractTextPlugin.extract(..) in `loaders`.
         new ExtractTextPlugin({
-            filename: cssFilename,
+            filename: cssFilename
         }),
         // Generate a manifest file which contains a mapping of all asset filenames
         // to their corresponding output file so that tools can pick it up without
@@ -339,5 +339,6 @@ module.exports = prodCustom({
     },
 }, {
     shouldUseSourceMap,
-    extractTextPluginOptions
+    extractTextPluginOptions,
+    cssFilename
 });
