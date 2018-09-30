@@ -204,6 +204,9 @@ exports.prod = function(config, {
         ICON_FONT_SOUCE:''
     }));
 
+    if(process.argv.includes('--npm_config_report=true'))
+        config.plugins.push(new BundleAnalyzerPlugin({openAnalyzer: true}));
+
     config.plugins.push(new es3ifyPlugin());
 
     if(config.plugins[5] instanceof ExtractTextPlugin){

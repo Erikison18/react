@@ -65,7 +65,8 @@
     "scripts": {
         "start": "node scripts/start.js",
         "build": "node config/downloadIconFontFile.js && node scripts/build.js",
-        "test": "node scripts/test.js --env=jsdom"
+        "test": "node scripts/test.js --env=jsdom",
+        "analyz": "node config/downloadIconFontFile.js && node scripts/build.js --npm_config_report=true"
     },
     "jest": {
         "collectCoverageFrom": [
@@ -119,6 +120,7 @@
         "es3ify-webpack-plugin": "0.0.1",
         "less": "^3.5.3",
         "less-loader": "^4.1.0",
+        "webpack-bundle-analyzer": "^3.0.2",
         "webpack-merge": "^4.1.3"
     },
     "proxy": {
