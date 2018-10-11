@@ -47,7 +47,6 @@ export default class AuthLayout extends Component {
     }
 
     render() {
-        console.log(this.props);
         return (
             <div>
                 <i className="icon iconfont icon-ugly-nav"></i>

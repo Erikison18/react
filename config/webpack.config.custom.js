@@ -7,6 +7,7 @@ const webpack = require('webpack');
 const paths = require('./paths');
 const url = require('url');
 const {iconFontCDNUrl,proIconFontDirectory,iconfontFileName,fetchPrefix} = require('./config.custom.js');
+// const { ReactLoadablePlugin } = require('react-loadable/webpack');
 
 function common(config) {
 
@@ -60,6 +61,10 @@ function common(config) {
             FETCH_PREFIX: JSON.stringify(fetchPrefix)
         }
     }));
+
+    // config.plugins.push(new ReactLoadablePlugin({
+    //   filename: 'static/react-loadable.json',
+    // }))
 
 
     return config;

@@ -66,7 +66,7 @@ function loading(){
 
 
 function RouterLoadable(opts){
-
+// console.log(opts.loader())
     return Loadable(
         Object.assign({},{
             loading

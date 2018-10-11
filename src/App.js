@@ -7,7 +7,9 @@ import {
     Route,
     Redirect,
     Switch,
-    Link
+    Link,
+    Prompt,
+    matchPath
 } from 'react-router-dom';
 
 import {
@@ -31,6 +33,7 @@ import CatchErrorBoundary from '@common/catchErrorBoundary';
 *懒加载模块components
 */
 import RouterLoadable from '@common/routerLoadable';
+import Loadable from 'react-loadable';
 import './App.less';
 
 let AuthLayout = RouterLoadable({
@@ -53,12 +56,21 @@ let ErrorComponent = RouterLoadable({
         import ('@components/common/error'),
 });
 
+// Loadable.preloadAll();
+// Loadable.preloadReady();
+// Complex
+//     .preload()
+//     .then(function(data){
+//         console.log(data)
+//     });
+
 fetch.default({
     method: 'POST',
     headers: {
         'Accept': 'application/json',
         'Content-Type': ' application/json',
     },
+    credentials: 'include',
     beforeSend() {
         //排除serviceWorker项
         if (!/http:\/\//.test(this.uri)&&process.env.HOME_PAGE) this.uri = `${process.env.FETCH_PREFIX}${this.uri}`;
@@ -68,7 +80,7 @@ fetch.default({
         //排除serviceWorker请求文件项
         if(!/^((ht|f)tps?):\/\/[\s\S]+\/[\s\S]+\.[\s\S]+$/.test(response.url)){
 
-            if (!response.ok) {
+            if (response.ok===false) {
                 message.error(`${response.status}\n${response.statusText}`);
                 return {}
             }
@@ -102,6 +114,16 @@ fetch.default({
 
 const store = configureStore();
 
+const getConfirmation = (message, callback,...a) => {
+    console.log(a);
+    const allowTransition = window.confirm(message);
+    // setTimeout(function(){
+        callback(allowTransition);
+    // },3000)
+}
+
+// const supportsHistory = 'pushState' in window.history
+
 class App extends Component {
     render() {
         return (
@@ -109,27 +131,41 @@ class App extends Component {
                 <Provider store={store}>
                     <div style={{height:'100%'}}>
                         <ProgressBar/>
-                        <Router>
+                        <Router getUserConfirmation={getConfirmation}>
                             <CatchErrorBoundary>
                                 <ul>
-                                    <li><Link to='/'>简单的redux例子</Link></li>
+                                    <li><Link to='/auth'>简单的redux例子</Link></li>
                                     <li><Link to='/unauth'>简单的async redux例子</Link></li>
                                     <li><Link to='/complex'>一个稍复杂的例子（redux models包含多个reduce的例子、多个action关联）</Link></li>
                                 </ul>
+                                <Prompt message={(location,...a) =>  {
+                                    console.log(a);
 
-                                <Switch>
-                                    <Route path='/' exact={true} component={AuthLayout} />
-                                    <Route path='/unauth' component={UnAuthLayout}/>
-                                    <Route path='/complex' component={Complex} />
-                                    <Route path='/error' exact={true} component={ErrorComponent}/>
-                                    <Redirect to='/error'/>
-                                </Switch>
+                                    return `Are you sue you want to go to ${location.pathname}? `
+                                }}/>
+                                <Route path='/' component={RouterContainer} />
                             </CatchErrorBoundary>
                         </Router>
                     </div>
                 </Provider>
             </LocaleProvider>
         );
+    }
+}
+
+class RouterContainer extends Component {
+    componentWillUpdate(nextProps, nextState) {
+    }
+    render() {
+        return (
+            <Switch>
+                <Route path='/auth' component={AuthLayout} />
+                <Route path='/unauth' component={UnAuthLayout}/>
+                <Route path='/complex' component={Complex} />
+                <Route path='/error' exact={true} component={ErrorComponent}/>
+                <Redirect to='/error'/>
+            </Switch>
+        )
     }
 }
 
