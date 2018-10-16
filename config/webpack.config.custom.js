@@ -23,6 +23,7 @@ function common(config) {
         ],
         vendors: [
             ...originEntry,
+            require.resolve('fetch-polyfill'),
             require.resolve(path.join(paths.appSrc, 'public', '/js/vendor.js')),
         ]
     }
