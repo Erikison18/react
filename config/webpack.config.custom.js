@@ -8,6 +8,7 @@ const paths = require('./paths');
 const url = require('url');
 const {iconFontCDNUrl,proIconFontDirectory,iconfontFileName,fetchPrefix} = require('./config.custom.js');
 // const { ReactLoadablePlugin } = require('react-loadable/webpack');
+const FileListPlugin = require('./FileListPlugin.js');
 
 function common(config) {
 
@@ -22,9 +23,17 @@ function common(config) {
             ...originEntry.splice(1)
         ],
         vendors: [
-            ...originEntry,
+            // ...originEntry,
+            require.resolve('babel-polyfill'),
             require.resolve('fetch-polyfill'),
-            require.resolve(path.join(paths.appSrc, 'public', '/js/vendor.js')),
+            require.resolve('raf/polyfill'),
+            require.resolve('react'),
+            require.resolve('react-dom'),
+            require.resolve('react-router-dom'),
+            require.resolve('redux'),
+            require.resolve('react-redux'),
+            require.resolve('prop-types'),
+            require.resolve(path.join(paths.appSrc, 'public', '/js/vendor.js'))
         ]
     }
 
@@ -63,9 +72,7 @@ function common(config) {
         }
     }));
 
-    // config.plugins.push(new ReactLoadablePlugin({
-    //   filename: 'static/react-loadable.json',
-    // }))
+    // config.plugins.push(new FileListPlugin())
 
 
     return config;

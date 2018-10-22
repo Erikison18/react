@@ -1,13 +1,13 @@
-import 'babel-polyfill';
-import 'raf/polyfill';
-import 'react';
-import 'react-dom';
-import 'react-router-dom';
-import 'redux';
-import 'react-redux';
-import 'prop-types';
-// import 'fetch-default';
+// import 'babel-polyfill';
+// import 'raf/polyfill';
+// import 'react';
+// import 'react-dom';
+// import 'react-router-dom';
+// import 'redux';
+// import 'react-redux';
+// import 'prop-types';
 
+// import 'fetch-default';
 
 
 (function(win) {
@@ -151,3 +151,7 @@ import 'prop-types';
     }
 
 })(window);
+
+
+
+
