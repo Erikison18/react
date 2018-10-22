@@ -114,15 +114,20 @@ fetch.default({
 
 const store = configureStore();
 
-const getConfirmation = (message, callback,...a) => {
-    console.log(a);
-    const allowTransition = window.confirm(message);
-    // setTimeout(function(){
-        callback(allowTransition);
-    // },3000)
-}
-
+// const getConfirmation = (message, callback,...a) => {
+//     console.log(a);
+//     const allowTransition = window.confirm(message);
+//     // setTimeout(function(){
+//         callback(allowTransition);
+//     // },3000)
+// }
+ // getUserConfirmation={getConfirmation}
 // const supportsHistory = 'pushState' in window.history
+//<Prompt message={(location,...a) =>  {
+    //console.log(a);
+
+    //return `Are you sue you want to go to ${location.pathname}? `
+//}}/>
 
 class App extends Component {
     render() {
@@ -131,18 +136,13 @@ class App extends Component {
                 <Provider store={store}>
                     <div style={{height:'100%'}}>
                         <ProgressBar/>
-                        <Router getUserConfirmation={getConfirmation}>
+                        <Router>
                             <CatchErrorBoundary>
                                 <ul>
                                     <li><Link to='/auth'>简单的redux例子</Link></li>
                                     <li><Link to='/unauth'>简单的async redux例子</Link></li>
                                     <li><Link to='/complex'>一个稍复杂的例子（redux models包含多个reduce的例子、多个action关联）</Link></li>
                                 </ul>
-                                <Prompt message={(location,...a) =>  {
-                                    console.log(a);
-
-                                    return `Are you sue you want to go to ${location.pathname}? `
-                                }}/>
                                 <Route path='/' component={RouterContainer} />
                             </CatchErrorBoundary>
                         </Router>
