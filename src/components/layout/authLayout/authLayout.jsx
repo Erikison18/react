@@ -19,6 +19,9 @@ import {
 import './authLayout.less';
 import {actiontor}  from '@models/count.js';
 
+import { renderRoutes } from 'react-router-config';
+import routes from '@router';
+
 /*
 组件AuthLayout连接到store，
 通过bindActionCreators把action和dispanth合并，方便调用。你也可以不传入connect的第二个参数结合bindActionCreators完成上述操作,在组件中通过dispanth结合action使用。
@@ -55,6 +58,7 @@ export default class AuthLayout extends Component {
                 <button name="increment" onClick={this.handlClick.bind(this)}>click increment</button>
                 <button name="decrement" onClick={this.handlClick.bind(this)}>click decrement</button>
                 <button name="multiply" onClick={this.handlClick.bind(this)}>click multiply</button>
+                {renderRoutes(this.props.route.routes)}
             </div>
         );
     }

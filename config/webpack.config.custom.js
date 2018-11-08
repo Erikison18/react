@@ -41,6 +41,7 @@ function common(config) {
     alias
     */
     config.resolve.alias['@src'] = path.join(__dirname, '../src');
+    config.resolve.alias['@router'] = path.join(__dirname, '../src/router');
     config.resolve.alias['@redux'] = path.join(__dirname, '../src/redux');
     config.resolve.alias['@models'] = path.join(__dirname, '../src/redux/models');
     config.resolve.alias['@middleware'] = path.join(__dirname, '../src/redux/middleware');

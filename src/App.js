@@ -35,34 +35,14 @@ import CatchErrorBoundary from '@common/catchErrorBoundary';
 import RouterLoadable from '@common/routerLoadable';
 import Loadable from 'react-loadable';
 import './App.less';
+import { renderRoutes, matchRoutes } from 'react-router-config';
+import routes from '@router';
+import { showLoading, hideLoading} from 'react-redux-loading-bar';
 
-let AuthLayout = RouterLoadable({
-    loader: () =>
-        import ('@components/layout/authLayout/authLayout.jsx'),
+message.config({
+  top: 200,
+  maxCount: 1,
 });
-
-let UnAuthLayout = RouterLoadable({
-    loader: () =>
-        import ('@components/layout/unAuthLayout/unAuthLayout.jsx'),
-});
-
-let Complex = RouterLoadable({
-    loader: () =>
-        import ('@components/layout/complex/complex.jsx'),
-});
-
-let ErrorComponent = RouterLoadable({
-     loader: () =>
-        import ('@components/common/error'),
-});
-
-// Loadable.preloadAll();
-// Loadable.preloadReady();
-// Complex
-//     .preload()
-//     .then(function(data){
-//         console.log(data)
-//     });
 
 fetch.default({
     method: 'POST',
@@ -114,20 +94,20 @@ fetch.default({
 
 const store = configureStore();
 
-// const getConfirmation = (message, callback,...a) => {
-//     console.log(a);
-//     const allowTransition = window.confirm(message);
-//     // setTimeout(function(){
-//         callback(allowTransition);
-//     // },3000)
-// }
- // getUserConfirmation={getConfirmation}
-// const supportsHistory = 'pushState' in window.history
-//<Prompt message={(location,...a) =>  {
-    //console.log(a);
+const getConfirmation = (pathname, callback) => {
 
-    //return `Are you sue you want to go to ${location.pathname}? `
-//}}/>
+    store.dispatch(showLoading())
+
+    let branch = matchRoutes(routes,pathname);
+    let componentsPreload = branch.map(({ route, match })=>route.component.preload());
+
+    Promise.all(componentsPreload)
+        .then((datas)=>{
+            store.dispatch(hideLoading());
+            callback(true);
+        })
+}
+// const supportsHistory = 'pushState' in window.history
 
 class App extends Component {
     render() {
@@ -136,14 +116,15 @@ class App extends Component {
                 <Provider store={store}>
                     <div style={{height:'100%'}}>
                         <ProgressBar/>
-                        <Router>
+                        <Router getUserConfirmation={getConfirmation}>
                             <CatchErrorBoundary>
+                                <Prompt message={({pathname})=>pathname}/>
                                 <ul>
-                                    <li><Link to='/auth'>简单的redux例子</Link></li>
+                                    <li><Link to='/auth/123/workhome/project'>简单的redux例子</Link></li>
                                     <li><Link to='/unauth'>简单的async redux例子</Link></li>
                                     <li><Link to='/complex'>一个稍复杂的例子（redux models包含多个reduce的例子、多个action关联）</Link></li>
                                 </ul>
-                                <Route path='/' component={RouterContainer} />
+                                {renderRoutes(routes)}
                             </CatchErrorBoundary>
                         </Router>
                     </div>
@@ -153,20 +134,22 @@ class App extends Component {
     }
 }
 
-class RouterContainer extends Component {
-    componentWillUpdate(nextProps, nextState) {
-    }
-    render() {
-        return (
-            <Switch>
-                <Route path='/auth' component={AuthLayout} />
-                <Route path='/unauth' component={UnAuthLayout}/>
-                <Route path='/complex' component={Complex} />
-                <Route path='/error' exact={true} component={ErrorComponent}/>
-                <Redirect to='/error'/>
-            </Switch>
-        )
-    }
-}
+// <Route path='/' component={RouterContainer} />
+
+// class RouterContainer extends Component {
+//     componentWillUpdate(nextProps, nextState) {
+//     }
+//     render() {
+//         return (
+//             <Switch>
+//                 <Route path='/auth' component={AuthLayout} />
+//                 <Route path='/unauth' component={UnAuthLayout}/>
+//                 <Route path='/complex' component={Complex} />
+//                 <Route path='/error' exact={true} component={ErrorComponent}/>
+//                 <Redirect to='/error'/>
+//             </Switch>
+//         )
+//     }
+// }
 
 export default App;
