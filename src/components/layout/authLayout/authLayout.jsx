@@ -21,6 +21,7 @@ import {actiontor}  from '@models/count.js';
 
 import { renderRoutes } from 'react-router-config';
 import routes from '@router';
+import CatchErrorBoundary from '@common/catchErrorBoundary';
 
 /*
 组件AuthLayout连接到store，
@@ -58,7 +59,9 @@ export default class AuthLayout extends Component {
                 <button name="increment" onClick={this.handlClick.bind(this)}>click increment</button>
                 <button name="decrement" onClick={this.handlClick.bind(this)}>click decrement</button>
                 <button name="multiply" onClick={this.handlClick.bind(this)}>click multiply</button>
-                {renderRoutes(this.props.route.routes)}
+                <CatchErrorBoundary>
+                    {renderRoutes(this.props.route.routes)}
+                </CatchErrorBoundary>
             </div>
         );
     }

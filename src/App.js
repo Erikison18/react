@@ -103,7 +103,9 @@ const getConfirmation = (pathname, callback) => {
 
     Promise.all(componentsPreload)
         .then((datas)=>{
-            store.dispatch(hideLoading());
+            setTimeout(function(){
+                store.dispatch(hideLoading());
+            },200)
             callback(true);
         })
 }

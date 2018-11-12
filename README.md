@@ -57,6 +57,8 @@ project
 	│		│		├──	config.js
 	│		│		├──	createStore.js
 	│		│		└──	localstorageStatesConfig.js
+	│		├──	router	
+	│		│		└──	index.js
 	│		├──	App.js
 	│		└──	index.js
 	├── .babelrc
@@ -126,6 +128,8 @@ project
 * [redux-localstorage-simple](https://github.com/kilkelly/redux-localstorage-simple)
 * [fetch](https://developer.mozilla.org/zh-CN/docs/Web/API/Fetch_API/Using_Fetch)
 * [ducks-modular-redux](https://github.com/erikras/ducks-modular-redux)
+* [react-router-config](https://www.npmjs.com/package/react-router-config)
+
 
 ### 技术栈脑图
 * [er.png](../er.png)
