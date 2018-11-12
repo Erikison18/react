@@ -85,6 +85,7 @@ project
 		- `config.js` redux 相关配置
 		- `createStore.js` 创建redux store 入口
 		- `localstorageStatesConfig.js` 统一管理处理标注的redux state 存储到localstorage配置文件
+	- `router` 路由相关配置
 		
 ### 开发约定
 
