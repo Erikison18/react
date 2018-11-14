@@ -1,3 +1,8 @@
+import React from 'react';
+
+import {
+    Redirect
+} from 'react-router-dom';
 import RouterLoadable from '@common/routerLoadable';
 
 let AuthLayout = RouterLoadable({
@@ -44,22 +49,31 @@ export default [{
         routes: [{
             path: '/auth/:id/workhome/personage',
             component: Personage,
+            exact: true
         }, {
             path: '/auth/:id/workhome/project',
             component: Project,
+            exact: true
+        }, {
+            component: (props) => <Redirect to='/error'/>
         }]
     }]
 }, {
     path: '/unauth',
-    component: UnAuthLayout
+    component: UnAuthLayout,
+    exact: true
 }, {
     path: '/complex',
-    component: Complex
-}, {
-    path: '/',
-    redirect: '/auth/123/workhome'
+    component: Complex,
+    exact: true
 }, {
     path: '/error',
     exact: true,
     component: ErrorComponent
+}, {
+    path: '/',
+    exact: true,
+    component: (props) => <Redirect to='/auth/123/workhome/personage'/>
+}, {
+    component: (props) => <Redirect to='/error'/>
 }]

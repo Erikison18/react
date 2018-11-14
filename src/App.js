@@ -98,16 +98,23 @@ const getConfirmation = (pathname, callback) => {
 
     store.dispatch(showLoading())
 
-    let branch = matchRoutes(routes,pathname);
-    let componentsPreload = branch.map(({ route, match })=>route.component.preload());
+    try{
 
-    Promise.all(componentsPreload)
-        .then((datas)=>{
-            setTimeout(function(){
-                store.dispatch(hideLoading());
-            },200)
-            callback(true);
-        })
+        let branch = matchRoutes(routes,pathname);
+        let componentsPreload = branch.map(({ route, match })=>route.component.preload());
+
+        Promise.all(componentsPreload)
+            .then((datas)=>{
+                setTimeout(function(){
+                    store.dispatch(hideLoading());
+                },200);
+                callback(true);
+            });
+
+    }catch(e){
+        store.dispatch(hideLoading());
+        callback(true);
+    }
 }
 // const supportsHistory = 'pushState' in window.history
 
