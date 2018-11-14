@@ -115,6 +115,7 @@ const getConfirmation = (pathname, callback) => {
         store.dispatch(hideLoading());
         callback(true);
     }
+
 }
 // const supportsHistory = 'pushState' in window.history
 
