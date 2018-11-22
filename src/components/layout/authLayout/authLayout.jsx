@@ -20,7 +20,6 @@ import './authLayout.less';
 import {actiontor}  from '@models/count.js';
 
 import { renderRoutes } from 'react-router-config';
-import routes from '@router';
 import CatchErrorBoundary from '@common/catchErrorBoundary';
 
 /*
