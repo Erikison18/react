@@ -35,6 +35,11 @@ let Project = RouterLoadable({
         import ('@components/workHome/project/project.jsx'),
 });
 
+let AMap = RouterLoadable({
+    loader: () =>
+        import ('@components/aMap/aMap.jsx'),
+});
+
 let ErrorComponent = RouterLoadable({
     loader: () =>
         import ('@components/common/error'),
@@ -65,6 +70,10 @@ export default [{
 }, {
     path: '/complex',
     component: Complex,
+    exact: true
+}, {
+    path: '/amap',
+    component: AMap,
     exact: true
 }, {
     path: '/error',

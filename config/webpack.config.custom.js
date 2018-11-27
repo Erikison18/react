@@ -75,6 +75,12 @@ function common(config) {
 
     // config.plugins.push(new FileListPlugin())
 
+    /*
+    externals
+    */
+    config.externals = {
+    　　'AMap': 'AMap'
+　　 }
 
     return config;
 

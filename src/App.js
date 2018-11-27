@@ -127,6 +127,7 @@ class App extends Component {
                                     <li><Link to='/auth/123/workhome/project'>简单的redux例子</Link></li>
                                     <li><Link to='/unauth'>简单的async redux例子</Link></li>
                                     <li><Link to='/complex'>一个稍复杂的例子（redux models包含多个reduce的例子、多个action关联）</Link></li>
+                                    <li><Link to='/amap'>amap</Link></li>
                                 </ul>
                                 {renderRoutes(routes)}
                             </CatchErrorBoundary>
