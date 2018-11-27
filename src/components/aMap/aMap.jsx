@@ -5,15 +5,7 @@ import data from './data.json';// 市县位置数据
 
 export default class AMapDemo extends Component {
 
-    async renderMap(){
-
-        let AMap = await AMapAsync();
-
-        this.map = new AMap.Map('aMapDemoContainer', {
-            viewMode:'3D',
-            pitch: 50,
-            zoom: 10
-        });
+    async renderLoca(){
 
         let Loca = await LocaAsync();
 
@@ -63,8 +55,21 @@ export default class AMapDemo extends Component {
 
     }
 
+    async renderAMap(){
+
+        let AMap = await AMapAsync();
+
+        this.map = new AMap.Map('aMapDemoContainer', {
+            viewMode:'3D',
+            pitch: 50,
+            zoom: 10
+        });
+
+    }
+
     componentDidMount() {
-        this.renderMap();
+        this.renderAMap();
+        this.renderLoca();
     }
 
     render() {
