@@ -78,9 +78,9 @@ function common(config) {
     /*
     externals
     */
-    config.externals = {
-    　　'AMap': 'AMap'
-　　 }
+//     config.externals = {
+//     　　'AMap': 'AMap'
+// 　　 }
 
     return config;
 
