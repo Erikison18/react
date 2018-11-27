@@ -111,8 +111,6 @@
 
         let oldFetchPromise = oldFetch(allOpts.uri, allOpts);
 
-        let initFetchPromise = oldFetchPromise;
-
         if (fail) oldFetchPromise = oldFetchPromise.then((response) => response,(reject) => fail.call(oldFetchPromise,reject));
         if (dataFilter) oldFetchPromise = oldFetchPromise.then((response) => dataFilter.call(oldFetchPromise,response));
 

@@ -4,12 +4,8 @@ import React, {
 
 import {
     HashRouter as Router,
-    Route,
-    Redirect,
-    Switch,
     Link,
-    Prompt,
-    matchPath
+    Prompt
 } from 'react-router-dom';
 
 import {
@@ -32,8 +28,6 @@ import CatchErrorBoundary from '@common/catchErrorBoundary';
 /*
 *懒加载模块components
 */
-import RouterLoadable from '@common/routerLoadable';
-import Loadable from 'react-loadable';
 import './App.less';
 import { renderRoutes, matchRoutes } from 'react-router-config';
 import routes from '@router';
@@ -67,7 +61,7 @@ fetch.default({
 
             let data = await response.json();
 
-            let {code,message:messageDes,messageBody} = data;
+            let {code,message:messageDes} = data;
 
             //未登录
             // if(code === 5000){
@@ -143,23 +137,5 @@ class App extends Component {
         );
     }
 }
-
-// <Route path='/' component={RouterContainer} />
-
-// class RouterContainer extends Component {
-//     componentWillUpdate(nextProps, nextState) {
-//     }
-//     render() {
-//         return (
-//             <Switch>
-//                 <Route path='/auth' component={AuthLayout} />
-//                 <Route path='/unauth' component={UnAuthLayout}/>
-//                 <Route path='/complex' component={Complex} />
-//                 <Route path='/error' exact={true} component={ErrorComponent}/>
-//                 <Redirect to='/error'/>
-//             </Switch>
-//         )
-//     }
-// }
 
 export default App;
