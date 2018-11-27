@@ -34,9 +34,9 @@ export default class AMapDemo extends Component {
                     // 城市类型，0：省会直辖市，1：地级市，2：区县
                     var style = obj.value.style;
                     var r;
-                    if (style == 0) {
+                    if (style === 0) {
                         r = 6;
-                    } else if (style == 1) {
+                    } else if (style === 1) {
                         r = 3;
                     } else {
                         r = 1.5;
