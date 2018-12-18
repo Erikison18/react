@@ -31,13 +31,10 @@ export default class CatchErrorBoundary extends Component {
                         <h1>
                             Error: {error.toString()}
                         </h1>
-                        {info &&info.componentStack.split('\n').map(i => {
-                            return (
-                                <div key={i}>
-                                    {i}
-                                </div>
-                            );
-                        })}
+                        <div
+                            dangerouslySetInnerHTML={{
+                            __html:info &&info.componentStack.replace(/[\n\r]/g,'<br/>').replace(/\s/g,'&nbsp;')}}
+                        />
                     </div>
                 )
             }
