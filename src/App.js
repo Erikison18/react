@@ -47,7 +47,7 @@ fetch.default({
     credentials: 'include',
     beforeSend() {
         //排除serviceWorker项
-        if (!/http:\/\//.test(this.uri)&&process.env.HOME_PAGE) this.uri = `${process.env.FETCH_PREFIX}${this.uri}`;
+        if (!/http:\/\//.test(this.uri)&&process.env.NODE_ENV==='production') this.uri = `${process.env.FETCH_PREFIX}${this.uri}`;
     },
     async dataFilter(response) {
 
