@@ -48,6 +48,10 @@ let applyMiddlewares = [
     })
 ];
 
+//如果是生产环境不打日志
+if(process.env.NODE_ENV==='production')
+    applyMiddlewares.splice(3,1);
+
 let composes = [applyMiddleware(...applyMiddlewares)];
 
 const enhancer = compose(
