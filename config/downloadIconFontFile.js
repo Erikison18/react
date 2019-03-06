@@ -10,7 +10,7 @@ if(!iconfontFileName)return console.log('iconfontFileName is undefined');
 
 let getKeyWordsReg = /\/\/at\.alicdn\.com\/t\/[A-Za-z\_\d]+(?=\.)/;
 let replaceKeyWordsReg = new RegExp(getKeyWordsReg,'g');
-let fileType = ['svg','ttf','woff','eot'];
+let fileType = ['svg','ttf','woff','eot','woff2'];
 let stamp = new Date().getTime();
 
 console.log('iconfont资源下载中...');
