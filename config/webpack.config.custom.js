@@ -64,6 +64,25 @@ function common(config) {
     */
     config.module.rules[1].oneOf[3].exclude.push(/\.less$/);
 
+    //懒加载公共组件
+    config.module.rules[1].oneOf[1].options.plugins = [
+        [
+            "import",
+            [
+                { "libraryName": "antd", "libraryDirectory": "es", "style": "css" },
+                { "libraryName": "@common",
+                    "customName": (name) => {
+                        let nameToUpperCase = name.replace(/-(\w)/g,function ($0,$1){
+                            return $1.toUpperCase();
+                        })
+                        return `@common/${nameToUpperCase}/${nameToUpperCase}.jsx`;
+                    }
+                }
+            ]
+        ]
+    ];
+
+
     /*
     plugin
     */
@@ -73,15 +92,6 @@ function common(config) {
             FETCH_PREFIX: JSON.stringify(fetchPrefix)
         }
     }));
-
-    // config.plugins.push(new FileListPlugin())
-
-    /*
-    externals
-    */
-//     config.externals = {
-//     　　'AMap': 'AMap'
-// 　　 }
 
     return config;
 
@@ -215,14 +225,41 @@ exports.prod = function(config, {
     });
 
 
+
+// {
+//       name: 'vendor',
+//       minChunks (module) {
+//         // any required modules inside node_modules are extracted to vendor
+//         return (
+//           module.resource &&
+//           /\.js$/.test(module.resource) &&
+//           module.resource.indexOf(
+//             path.join(__dirname, '../node_modules')
+//           ) === 0
+//         )
+//       }
+//     }
+
     //plugins
     config.plugins.push(new webpack.optimize.CommonsChunkPlugin({
         name: 'vendors',
         filename: path.join('static/js/[name].[chunkhash:8].js')
     }));
 
+    config.plugins.push(new webpack.optimize.CommonsChunkPlugin({
+      name: 'manifest',
+      minChunks: Infinity
+    }));
+
+    config.plugins.push(new webpack.optimize.CommonsChunkPlugin({
+        name: 'main',
+        async: 'vendor-async',
+        children: true,
+        minChunks: 3
+    }));
+
     config.plugins.push(new InterpolateHtmlPlugin({
-        ICON_FONT_SOUCE:''
+        ICON_FONT_SOUCE:iconFontCDNUrl?`<link rel="stylesheet" href="${iconFontCDNUrl}">`:''
     }));
 
     if(process.argv.includes('--npm_config_report=true'))

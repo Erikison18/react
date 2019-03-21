@@ -1,15 +1,11 @@
 {
     "presets": [
-        "es2015",
+        ["es2015", {"modules": false}],
         "react",
         "stage-0"
     ],
-    "plugins": [
+    "plugins":[
         "syntax-dynamic-import",
-        "transform-decorators-legacy",
-        [
-            "import",
-            { "libraryName": "antd", "libraryDirectory": "es", "style": "css" }
-        ]
+        "transform-decorators-legacy"
     ]
 }

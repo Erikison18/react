@@ -151,8 +151,7 @@ module.exports = prodCustom({
                         include: paths.appSrc,
                         loader: require.resolve('babel-loader'),
                         options: {
-
-                            compact: true,
+                            compact: true
                         },
                     },
                     // The notation here is somewhat confusing.
