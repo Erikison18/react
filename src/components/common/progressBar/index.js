@@ -41,7 +41,7 @@ class Modal extends Component {
     }
 
     componentWillUnmount() {
-        progressBarContainer.removeChild(this.el);
+        // progressBarContainer.removeChild(this.el);
     }
 
     render() {

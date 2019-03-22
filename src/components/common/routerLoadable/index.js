@@ -44,7 +44,7 @@ class Modal extends Component {
     }
 
     componentWillUnmount() {
-        routerLoadableContainer.removeChild(this.el);
+        // routerLoadableContainer.removeChild(this.el);
     }
 
     render() {
