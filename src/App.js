@@ -58,7 +58,7 @@ fetch.default({
     beforeSend() {
 
         //排除serviceWorker项
-        if(!/http:\/\//.test(this.uri)){
+        if(!/^((ht|f)tps?):\/\/[\s\S]+\/[\s\S]+\.[\s\S]+$/.test(this.uri)){
             if (process.env.NODE_ENV==='production') this.uri = `${autoPathPrefix}${this.uri}`;
             else this.uri = `${process.env.FETCH_PREFIX}${this.uri}`;
         }
