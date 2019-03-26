@@ -38,16 +38,31 @@ message.config({
   maxCount: 1,
 });
 
+let autoPathPrefix;
+
+try {
+    autoPathPrefix = window.location.pathname.match(/^\/[\s\S]+?(?=\/)/)[0];
+}
+catch(err) {
+    autoPathPrefix='';
+}
+
+
 fetch.default({
     method: 'POST',
     headers: {
         'Accept': 'application/json',
-        'Content-Type': ' application/json',
+        'Content-Type': 'application/json',
     },
     credentials: 'include',
     beforeSend() {
+
         //排除serviceWorker项
-        if (!/http:\/\//.test(this.uri)&&process.env.NODE_ENV==='production') this.uri = `${process.env.FETCH_PREFIX}${this.uri}`;
+        if(!/http:\/\//.test(this.uri)){
+            if (process.env.NODE_ENV==='production') this.uri = `${autoPathPrefix}${this.uri}`;
+            else this.uri = `${process.env.FETCH_PREFIX}${this.uri}`;
+        }
+
     },
     async dataFilter(response) {
 
