@@ -97,7 +97,7 @@ fetch.default({
     },
     fail(e) {
         message.error(e.toString());
-        return e
+        return {e}
     }
 });
 
