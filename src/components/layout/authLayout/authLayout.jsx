@@ -65,6 +65,7 @@ export default class AuthLayout extends Component {
                     <li><Link to='/auth/123/workhome/project'>project</Link></li>
                     <li><Link to='/auth/123/workhome/personage'>personage</Link></li>
                 </ul>
+                过渡例子
                 <CatchErrorBoundary>
                     <TransitionGroup>
                         <CSSTransition
