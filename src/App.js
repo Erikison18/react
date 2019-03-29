@@ -1,7 +1,6 @@
 import React, {
     Component
 } from 'react';
-
 import {
     HashRouter as Router,
     Link,
@@ -135,7 +134,7 @@ class App extends Component {
                 <Provider store={store}>
                     <div style={{height:'100%'}}>
                         <ProgressBar/>
-                        <Router getUserConfirmation={getConfirmation}>
+                        <Router getUserConfirmation={getConfirmation} keyLength={12}>
                             <CatchErrorBoundary>
                                 <Prompt message={({pathname})=>pathname}/>
                                 <ul>

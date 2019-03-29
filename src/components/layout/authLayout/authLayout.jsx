@@ -3,7 +3,8 @@ import React, {
 } from 'react';
 
 import {
-    withRouter
+    withRouter,
+    Link
 } from 'react-router-dom';
 
 import {
@@ -21,6 +22,7 @@ import {actiontor}  from '@models/count.js';
 
 import { renderRoutes } from 'react-router-config';
 import CatchErrorBoundary from '@common/catchErrorBoundary';
+import { TransitionGroup, CSSTransition } from "react-transition-group";
 
 /*
 组件AuthLayout连接到store，
@@ -50,6 +52,7 @@ export default class AuthLayout extends Component {
     }
 
     render() {
+        console.log(this.props.location);
         return (
             <div>
                 <i className="icon iconfont icon-ugly-nav"></i>
@@ -58,8 +61,20 @@ export default class AuthLayout extends Component {
                 <button name="increment" onClick={this.handlClick.bind(this)}>click increment</button>
                 <button name="decrement" onClick={this.handlClick.bind(this)}>click decrement</button>
                 <button name="multiply" onClick={this.handlClick.bind(this)}>click multiply</button>
+                <ul>
+                    <li><Link to='/auth/123/workhome/project'>project</Link></li>
+                    <li><Link to='/auth/123/workhome/personage'>personage</Link></li>
+                </ul>
                 <CatchErrorBoundary>
-                    {renderRoutes(this.props.route.routes)}
+                    <TransitionGroup>
+                        <CSSTransition
+                          key={this.props.location.pathname}
+                          classNames='fade-node'
+                          timeout={300}
+                        >
+                            {renderRoutes(this.props.route.routes,{},{location:this.props.location})}
+                        </CSSTransition>
+                    </TransitionGroup>
                 </CatchErrorBoundary>
             </div>
         );
