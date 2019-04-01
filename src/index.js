@@ -10,6 +10,6 @@ ReactDOM.render(
 
 serviceWorker.unregister();
 
-if (module.hot) {
+if (module.hot&&process.env.NODE_ENV!=='production') {
  module.hot.accept();
 }
