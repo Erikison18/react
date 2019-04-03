@@ -80,7 +80,7 @@ fetch.default({
             //未登录
             // if(code === 5000){
             //     message.error(messageDes);
-            //     store.dispatch(actiontor.loginFlag(false));
+            //     store.dispatch(actiontor.loginLogOut());
             // }
 
             if(code !== '9000'){
