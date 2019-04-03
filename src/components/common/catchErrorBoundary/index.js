@@ -1,6 +1,7 @@
 import React, {
     Component
 } from 'react';
+import { Alert } from 'antd';
 
 export default class CatchErrorBoundary extends Component {
     state={
@@ -21,21 +22,24 @@ export default class CatchErrorBoundary extends Component {
 
             if(process.env.NODE_ENV==='production'){
                 return (
-                    <div>
-                        程序员已经在修复了，稍安勿躁
-                    </div>
+                    <Alert
+                        message='程序出错了'
+                        description='程序员已经在修复了，稍安勿躁'
+                        type='error'
+                    />
                 )
             }else{
                 return (
-                    <div>
-                        <h1>
-                            Error: {error.toString()}
-                        </h1>
-                        <div
+                    <Alert
+                        message={`Error: ${error.toString()}`}
+                        description={
+                            <div
                             dangerouslySetInnerHTML={{
-                            __html:info &&info.componentStack.replace(/[\n\r]/g,'<br/>').replace(/\s/g,'&nbsp;')}}
-                        />
-                    </div>
+                                __html:info &&info.componentStack.replace(/[\n\r]/g,'<br/>').replace(/\s/g,'&nbsp;')}}
+                            />
+                        }
+                        type='error'
+                    />
                 )
             }
 
