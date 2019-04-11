@@ -53,6 +53,8 @@ function common(config) {
     config.resolve.alias['@style'] = path.join(paths.appSrc, 'public', '/style');
     config.resolve.alias['@img'] = path.join(paths.appSrc, 'public', '/img');
     config.resolve.alias['@other'] = path.join(paths.appSrc, 'public', '/other');
+    //临时解决antd icons 包大的办法
+    config.resolve.alias['@ant-design/icons/lib/dist$'] = path.join(paths.appSrc, 'public', '/js/icons.js');
 
     /*
     extensions
@@ -276,6 +278,8 @@ exports.prod = function(config, {
         console.error('ExtractTextPlugin fail!');
     }
 
+//     config.plugins.push(new webpack.IgnorePlugin(/^\.\/locale$/,/moment$/));
+// config.plugins.push(new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/,/zh-cn/));
     return config;
 }
 
