@@ -40,7 +40,7 @@ message.config({
 let autoPathPrefix;
 
 try {
-    autoPathPrefix = window.location.pathname.match(/^\/[\s\S]+?(?=\/)/)[0];
+    autoPathPrefix = window.location.pathname.match(/^\/[^\/]+/)[0];
 }
 catch(err) {
     autoPathPrefix='';
