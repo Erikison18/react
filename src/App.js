@@ -4,7 +4,8 @@ import React, {
 import {
     HashRouter as Router,
     Link,
-    Prompt
+    Prompt,
+    withRouter
 } from 'react-router-dom';
 
 import {
@@ -31,6 +32,7 @@ import './App.less';
 import { renderRoutes, matchRoutes } from 'react-router-config';
 import routes from '@router';
 import { showLoading, hideLoading} from 'react-redux-loading-bar';
+import { TransitionGroup, CSSTransition } from "react-transition-group";
 import {getAutoPathPrefix} from "@js/utils.js";
 
 const autoPathPrefix = getAutoPathPrefix();
@@ -136,13 +138,36 @@ class App extends Component {
                                     <li><Link to='/complex'>一个稍复杂的例子（redux models包含多个reduce的例子、多个action关联）</Link></li>
                                     <li><Link to='/amap'>amap</Link></li>
                                 </ul>
-                                {renderRoutes(routes)}
+                                <Layout/>
                             </CatchErrorBoundary>
                         </Router>
                     </div>
                 </Provider>
             </LocaleProvider>
         );
+    }
+}
+
+@withRouter
+class Layout extends Component {
+    render(){
+        let key;
+        try{
+            key = this.props.location.pathname.match(/^\/[^\/]+/)[0]
+        }catch(e){
+            key='';
+        }
+        return(
+            <TransitionGroup component={null}>
+                <CSSTransition
+                    key={key}
+                    classNames='fade-node'
+                    timeout={500}
+                >
+                    {renderRoutes(routes,{},{location:this.props.location})}
+                </CSSTransition>
+            </TransitionGroup>
+        )
     }
 }
 
