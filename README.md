@@ -113,7 +113,27 @@ project
 	- reducer `@/models/index.js` 下进行收集，如`export complex from './complex.js';`。
 	- 需要进行缓存的状态值可以通过 `@redux/localstorageStatesConfig.js` 下进行配置。
 	- 异步请求使用统一归纳到redux models `异步action` 中，为页面增加progress-bar状态。
+	
+### 注意事项
 
+- 因为 `antd` 的 `Icon` 组件加载icon图标是直接引用的 `dist.js` 整个包，所以造成项目体积变大。当我们只使用其中少部分图标时是得不偿失的。最后临时解决方案为：
+
+```
+	//通过webpack resolve.alias把antd包内的dist引用指向我们应用文件public/js/icons.js下
+	config.resolve.alias['@ant-design/icons/lib/dist$'] = path.join(paths.appSrc, 'public', '/js/icons.js');
+	//然后再在icons中手动按需加入对应图标文件
+	// export what you need
+	export {
+  		default as SmileOutline
+	} from '@ant-design/icons/lib/outline/SmileOutline';
+	export {
+  		default as MehOutline
+	} from '@ant-design/icons/lib/outline/MehOutline';
+	// export what antd other components need
+	export {
+  		default as CloseOutline
+	} from '@ant-design/icons/lib/outline/CloseOutline';
+```
 
 ### 相关文档
 
