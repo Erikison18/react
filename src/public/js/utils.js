@@ -11,3 +11,19 @@ export function formatTextCodeToview(string){
     return string.replace(/\s/g,'&nbsp;');
 
 }
+
+//获取自动前缀
+export function getAutoPathPrefix(){
+
+    let autoPathPrefix;
+
+    try {
+        autoPathPrefix = window.location.pathname.match(/^\/[^\/]+/)[0];
+    }
+    catch(err) {
+        autoPathPrefix='';
+    }
+
+    return autoPathPrefix;
+
+}

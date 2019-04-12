@@ -31,21 +31,14 @@ import './App.less';
 import { renderRoutes, matchRoutes } from 'react-router-config';
 import routes from '@router';
 import { showLoading, hideLoading} from 'react-redux-loading-bar';
+import {getAutoPathPrefix} from "@js/utils.js";
+
+const autoPathPrefix = getAutoPathPrefix();
 
 message.config({
   top: 200,
   maxCount: 1,
 });
-
-let autoPathPrefix;
-
-try {
-    autoPathPrefix = window.location.pathname.match(/^\/[^\/]+/)[0];
-}
-catch(err) {
-    autoPathPrefix='';
-}
-
 
 fetch.default({
     method: 'POST',
