@@ -45,8 +45,8 @@ let ErrorComponent = RouterLoadable({
         import ('@components/common/error'),
 });
 
-export default [{
-    path: '/auth/:id',
+const routes = [{
+path: '/auth/:id',
     component: AuthLayout,
     routes: [{
         path: '/auth/:id/workhome',
@@ -76,13 +76,28 @@ export default [{
     component: AMap,
     exact: true
 }, {
+    path: '/',
+    exact: true,
+    component: (props) => <Redirect to='/login'/>
+}, {
     path: '/error',
     exact: true,
     component: ErrorComponent
-}, {
-    path: '/',
-    exact: true,
-    component: (props) => <Redirect to='/auth/123/workhome/personage'/>
-}, {
+},{
     component: (props) => <Redirect to='/error'/>
 }]
+
+
+// if(process.env.NODE_ENV!=='production') {
+//     let Demo = RouterLoadable({
+//         loader: () =>
+//             import ('@components/demo/demo.jsx'),
+//     });
+//     routes.unshift({
+//         path: '/demo',
+//         exact: true,
+//         component: Demo
+//     })
+// }
+
+export default routes
