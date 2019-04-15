@@ -15,15 +15,6 @@ export function formatTextCodeToview(string){
 //获取自动前缀
 export function getAutoPathPrefix(){
 
-    let autoPathPrefix;
-
-    try {
-        autoPathPrefix = window.location.pathname.match(/^\/[^\/]+/)[0];
-    }
-    catch(err) {
-        autoPathPrefix='';
-    }
-
-    return autoPathPrefix;
+    return document.body.getAttribute('prefix');
 
 }
