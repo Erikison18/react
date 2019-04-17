@@ -8,8 +8,6 @@ export default class AMapDemo extends Component {
     async renderAMap(){
 
         this.AMap = await AMapAsync();
-
-
         this.map = new this.AMap.Map('aMapDemoContainer', {
             viewMode:'3D',
             pitch: 50,
