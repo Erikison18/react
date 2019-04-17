@@ -110,7 +110,7 @@ const getConfirmation = (pathname, callback) => {
             .then((datas)=>{
                 setTimeout(function(){
                     store.dispatch(hideLoading());
-                },200);
+                },500);
                 callback(true);
             });
 
