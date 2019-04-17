@@ -45,6 +45,11 @@ let AMap1 = RouterLoadable({
         import ('@components/aMap/aMap1.jsx'),
 });
 
+let Animation = RouterLoadable({
+    loader: () =>
+        import ('@components/animation/animation.jsx'),
+});
+
 
 let ErrorComponent = RouterLoadable({
     loader: () =>
@@ -84,6 +89,10 @@ path: '/auth/:id',
 }, {
     path: '/amap1',
     component: AMap1,
+    exact: true
+},{
+    path: '/animation',
+    component: Animation,
     exact: true
 }, {
     path: '/',

@@ -138,6 +138,7 @@ class App extends Component {
                                     <li><Link to='/complex'>一个稍复杂的例子（redux models包含多个reduce的例子、多个action关联）</Link></li>
                                     <li><Link to='/amap'>amap</Link></li>
                                     <li><Link to='/amap1'>amap1</Link></li>
+                                    <li><Link to='/animation'>animation</Link></li>
                                 </ul>
                                 <Layout/>
                             </CatchErrorBoundary>
