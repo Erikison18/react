@@ -1,46 +1,63 @@
 //高德api
-export const AMapAsync=({plugin}={})=>{
+export const AMapAsync=(optins={})=>{
 
-    plugin = plugin && plugin instanceof Array ? plugin.join(','):'';
+    let {plugin}=optins;
 
-    return setCallBackLoadScript(`https://webapi.amap.com/maps?v=1.4.8&key=99d77e072f09ea55969ce6b5f1593609&plugin=${plugin}`,'AMap','AMapOnLoad')
+    plugin = plugin && plugin instanceof Array ? `&plugin=${plugin.join(',')}`:'';
+
+    return setCallBackLoadScript(`https://webapi.amap.com/maps?v=1.4.8&key=99d77e072f09ea55969ce6b5f1593609${plugin}`,'AMap',optins)
 
 };
 //高德可视化api
 export const LocaAsync=()=>loadScript('https://webapi.amap.com/loca?v=1.2.0&key=99d77e072f09ea55969ce6b5f1593609','Loca');
 
 //百度地图下载脚本
-export const BMapAsync=()=> setCallBackLoadScript('https://api.map.baidu.com/api?v=2.0&ak=19d4aa4182c4809347bbf96f0820dc69&s=1','BMap','baiduApiInit');
+export const BMapAsync=()=>setCallBackLoadScript('https://api.map.baidu.com/api?v=2.0&ak=19d4aa4182c4809347bbf96f0820dc69&s=1','BMap');
 export const BDrawAsync=()=>loadScript('https://api.map.baidu.com/library/DrawingManager/1.4/src/DrawingManager_min.js','BMapLib');
 export const HeatAsync=()=>loadScript('https://api.map.baidu.com/library/Heatmap/2.0/src/Heatmap_min.js','Heatmap');
 
 //按官方异步加载需要回调参数的脚本下载函数
-function setCallBackLoadScript(
-    //请求脚本url地址
-    url,
-    //脚本加载后的全局变量名
-    className,
-    //异步加载callBackName
-    loadCallBackName
-){
+let setCallBackLoadScript = (function(){
 
-    return new Promise(function(resolve,reject){
+    //对应某脚本当前配置所加载的资源记录。如果某脚本要加载的资源为当前加载的资源，则不需要重新加载。反之重新加载
+    let cacheLibForScriptOptions = {};
 
-        //如果已加载过该jsdk
-        if(window[className]){
-            return resolve(window[className])
-        }
+    return function(
+        //请求脚本url地址
+        url,
+        //脚本加载后的全局变量名
+        className,
+        //入参配置
+        optins={}
+    ){
 
-        url+=`&callback=${loadCallBackName}`;
+        let optinsValue = JSON.stringify(optins);
 
-        window[loadCallBackName] = function(){
-            resolve(window[className]);
-        }
+        return new Promise(function(resolve,reject){
 
-        createScript(url);
+            let loadCallBackName = `${className}OnLoad`;
 
-    });
-}
+            //如果某脚本要加载的资源为当前加载的资源
+            if(cacheLibForScriptOptions[className]==optinsValue){
+                return resolve(window[className])
+            }
+
+            url+=`&callback=${loadCallBackName}`;
+
+            window[loadCallBackName] = function(){
+
+                //记录某脚本要加载的资源配置
+                cacheLibForScriptOptions[className]=optinsValue;
+                resolve(window[className]);
+
+            }
+
+            createScript(url);
+
+        });
+    }
+
+})();
 
 
 //加载一般脚本
@@ -84,17 +101,7 @@ function createScript(url){
 
 }
 
-function parseObjectPath(stringPath){
 
-    return stringPath.split('.').reduce(function(prev,currentString){
-
-        prev[currentString]={};
-
-        return prev[currentString]
-
-    },window);
-
-}
 
 
 

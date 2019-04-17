@@ -40,6 +40,12 @@ let AMap = RouterLoadable({
         import ('@components/aMap/aMap.jsx'),
 });
 
+let AMap1 = RouterLoadable({
+    loader: () =>
+        import ('@components/aMap/aMap1.jsx'),
+});
+
+
 let ErrorComponent = RouterLoadable({
     loader: () =>
         import ('@components/common/error'),
@@ -74,6 +80,10 @@ path: '/auth/:id',
 }, {
     path: '/amap',
     component: AMap,
+    exact: true
+}, {
+    path: '/amap1',
+    component: AMap1,
     exact: true
 }, {
     path: '/',

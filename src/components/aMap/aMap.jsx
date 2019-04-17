@@ -57,19 +57,18 @@ export default class AMapDemo extends Component {
 
     async renderAMap(){
 
-        let AMap = await AMapAsync({plugin:['AMap.DistrictSearch']});
+        this.AMap = await AMapAsync({plugin:['AMap.DistrictSearch']});
 
         let opts = {
             subdistrict: 0,   //获取边界不需要返回下级行政区
             extensions: 'all',  //返回行政区边界坐标组等具体信息
             level: 'district'  //查询行政级别为 市
         };
-        let district = new AMap.DistrictSearch(opts);
-
+        let district = new this.AMap.DistrictSearch(opts);
 
         console.log(district);
 
-        this.map = new AMap.Map('aMapDemoContainer', {
+        this.map = new this.AMap.Map('aMapDemoContainer', {
             viewMode:'3D',
             pitch: 50,
             zoom: 10
@@ -85,8 +84,6 @@ export default class AMapDemo extends Component {
 
     async createCustomLayout(){
 
-        let AMap = await AMapAsync();
-
         let div = document.createElement('div');
 
         div.id = 'customLayer';
@@ -94,9 +91,8 @@ export default class AMapDemo extends Component {
         // 将 div 宽高设置为地图实例的宽高
         div.width = this.map.getSize().width;
         div.height = this.map.getSize().height;
-
         // 创建一个自定义图层
-        let customLayer = new AMap.CustomLayer(div, {
+        let customLayer = new this.AMap.CustomLayer(div, {
             zIndex: 12,
             // zooms: [3, 18] // 设置可见级别，[最小级别，最大级别]
         });
