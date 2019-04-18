@@ -4,3 +4,34 @@
   background: red;
   position: absolute;
 }
+
+.warning {
+    height: 20px;
+    position: relative;
+    background-color: #6DA807;
+    border: 1px solid #6DA807;
+    border-radius: 10px;
+    background-size: 3em 3em;
+    background-image: linear-gradient(-45deg, transparent 0em, transparent 0.8em, #96D923 0.9em, #96D923 2.1em, transparent 2.1em, transparent 2.9em, #96D923 3.1em);
+    animation: warning-animation 750ms infinite linear;
+}
+.warning:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 100%;
+  border-radius: 10px;
+  background-image: linear-gradient(to bottom, #6DA807, rgba(171, 226, 77, 0.6) 0%, transparent 60%, #6DA807);
+}
+
+@keyframes warning-animation {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 3em 0;
+  }
+}

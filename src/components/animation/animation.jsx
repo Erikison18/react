@@ -4,6 +4,8 @@ import { InputNumber, Button, Checkbox } from 'antd';
 import TweenOne from 'rc-tween-one';
 import Children from 'rc-tween-one/lib/plugin/ChildrenPlugin';
 import './animation.less'
+import ReactDOM from 'react-dom';
+
 
 TweenOne.plugins.push(Children);
 
@@ -114,6 +116,8 @@ class BarrageDemo extends Component {
 
 
       render() {
+
+
         return (
           <div>
             <TweenOne
@@ -160,6 +164,7 @@ class Demo extends Component {
     render(){
         return(
             <Fragment>
+                <div className="warning"/>
                 <TweenOneDemo value={this.state.value} format={(item,i)=><span key={i} style={{color:'red'}}>{item}</span>}/>
             </Fragment>
         )
