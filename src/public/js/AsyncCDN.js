@@ -1,3 +1,7 @@
+import {getAutoPathPrefix} from "@js/utils.js";
+const autoPathPrefix = getAutoPathPrefix();
+const mapPath = document.body.getAttribute('mapPath');
+const pictureType = document.body.getAttribute('pictureType');
 //高德api
 export const AMapAsync=(optins={})=>{
 
@@ -12,9 +16,29 @@ export const AMapAsync=(optins={})=>{
 export const LocaAsync=()=>loadScript('https://webapi.amap.com/loca?v=1.2.0&key=99d77e072f09ea55969ce6b5f1593609','Loca');
 
 //百度地图下载脚本
-export const BMapAsync=()=>setCallBackLoadScript('https://api.map.baidu.com/api?v=2.0&ak=19d4aa4182c4809347bbf96f0820dc69&s=1','BMap');
-export const BDrawAsync=()=>loadScript('https://api.map.baidu.com/library/DrawingManager/1.4/src/DrawingManager_min.js','BMapLib');
-export const HeatAsync=()=>loadScript('https://api.map.baidu.com/library/Heatmap/2.0/src/Heatmap_min.js','Heatmap');
+export const BMapAsync = async ()=>{
+   
+    if (process.env.NODE_ENV==='production'){ 
+        window.__BAIDU__API__CONFIG__={
+            scriptPath:autoPathPrefix+'/baiduApi/',//脚本目录地址
+            imagePath:autoPathPrefix+'/baiduApi/images/',//百度小图标目录地址
+            maptilePath:mapPath, //瓦片图目录
+            maptileFormate:pictureType//瓦片图格式
+        }
+        return await loadScript(autoPathPrefix+'/baiduApi/apiv2.0_street.js','BMap');
+     
+    }else{
+        return setCallBackLoadScript('https://api.map.baidu.com/api?v=2.0&ak=19d4aa4182c4809347bbf96f0820dc69&s=1','BMap');
+    }
+}
+export const BDrawAsync=()=>{
+    if (process.env.NODE_ENV==='production'){
+        return loadScript(autoPathPrefix+'/baiduApi/DrawingManager_1.4.js','BMapLib');
+    }else{
+        return loadScript('https://api.map.baidu.com/library/DrawingManager/1.4/src/DrawingManager_min.js','BMapLib');
+    }
+}
+export const HeatAsync=()=>loadScript('https://api.map.baidu.com/library/Heatmap/2.0/src/Heatmap_min.js');
 
 //按官方异步加载需要回调参数的脚本下载函数
 let setCallBackLoadScript = (function(){
@@ -71,14 +95,14 @@ function loadScript(
     return new Promise(function(resolve,reject){
 
         //如果已加载过该jsdk
-        if(window[className]){
+        if(className&&window[className]){
             return resolve(window[className])
         }
 
         let script = createScript(url);
 
         script.onload = function(){
-            resolve(window[className]);
+            resolve(className&&window[className]);
         };
         script.onerror = function(e){
             reject(e);
