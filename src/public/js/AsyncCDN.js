@@ -95,9 +95,9 @@ function loadScript(
     return new Promise(function(resolve,reject){
 
         //如果已加载过该jsdk
-        if(className&&window[className]){
-            return resolve(window[className])
-        }
+        // if(className&&window[className]){
+        //     return resolve(window[className])
+        // }
 
         let script = createScript(url);
 
