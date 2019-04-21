@@ -1,6 +1,8 @@
 const request = require('request');
 const fs = require('fs');
-const {iconFontCDNUrl,proIconFontDirectory,iconfontFileName} = require('./config.custom.js');
+const paths = require('./paths');
+const path = require('path');
+let {iconFontCDNUrl,proIconFontDirectory,iconfontFileName} = require('./config.custom.js');
 // const stream = require('stream');
 // const util = require('util');
 
@@ -8,11 +10,14 @@ if(!iconFontCDNUrl)return;
 if(!proIconFontDirectory)return console.log('proIconFontDirectory is undefined');
 if(!iconfontFileName)return console.log('iconfontFileName is undefined');
 
+
 let getKeyWordsReg = /\/\/at\.alicdn\.com\/t\/[A-Za-z\_\d]+(?=\.)/;
 let replaceKeyWordsReg = new RegExp(getKeyWordsReg,'g');
 let fileType = ['svg','ttf','woff','eot','woff2'];
 let stamp = new Date().getTime();
 
+
+proIconFontDirectory = path.join(paths.appPublic,proIconFontDirectory);
 console.log('iconfont资源下载中...');
 
 request.get(`http:${iconFontCDNUrl}`,function(err,res,body){
