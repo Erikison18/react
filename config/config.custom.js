@@ -8,7 +8,7 @@ module.exports = {
     //iconfont生成文件名
     iconfontFileName:'iconfont',
     //请求前缀
-    fetchPrefix:'/gajpt'
+    fetchPrefix:''
 }
 
 /*
