@@ -139,6 +139,7 @@ class App extends Component {
                                     <li><Link to='/amap'>amap</Link></li>
                                     <li><Link to='/amap1'>amap1</Link></li>
                                     <li><Link to='/animation'>animation</Link></li>
+                                    <li><Link to='/date'>date</Link></li>
                                 </ul>
                                 <Layout/>
                             </CatchErrorBoundary>

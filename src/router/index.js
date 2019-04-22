@@ -49,6 +49,10 @@ let Animation = RouterLoadable({
     loader: () =>
         import ('@components/animation/animation.jsx'),
 });
+let DateC= RouterLoadable({
+    loader: () =>
+        import ('@components/date/date.jsx'),
+});
 
 
 let ErrorComponent = RouterLoadable({
@@ -91,6 +95,10 @@ path: '/auth/:id',
     component: AMap1,
     exact: true
 },{
+    path: '/date',
+    component: DateC,
+    exact: true
+}, {
     path: '/animation',
     component: Animation,
     exact: true

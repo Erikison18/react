@@ -179,8 +179,8 @@ exports.prod = function(config, {
     // config.entry.vendors.unshift(require.resolve('raf/polyfill'));
 
     //添加本地iconfont
-    if(iconFontCDNUrl && proIconFontDirectory && iconfontFileName)
-        config.entry.vendors.unshift(require.resolve(`${proIconFontDirectory}/${iconfontFileName}.css`));
+    // if(iconFontCDNUrl && proIconFontDirectory && iconfontFileName)
+    //     config.entry.vendors.unshift(require.resolve(`${proIconFontDirectory}/${iconfontFileName}.css`));
 
     config.module.rules[1].oneOf.push({
         test: /\.less$/,
@@ -261,7 +261,7 @@ exports.prod = function(config, {
     }));
 
     config.plugins.push(new InterpolateHtmlPlugin({
-        ICON_FONT_SOUCE:iconFontCDNUrl?`<link rel="stylesheet" href="${iconFontCDNUrl}">`:''
+        ICON_FONT_SOUCE:iconFontCDNUrl&&proIconFontDirectory&&iconfontFileName?`<link rel="stylesheet" href="${proIconFontDirectory}/${iconfontFileName}.css">`:''
     }));
 
     if(process.argv.includes('--npm_config_report=true'))
