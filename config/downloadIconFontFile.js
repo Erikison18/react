@@ -1,5 +1,6 @@
 const request = require('request');
 const fs = require('fs');
+const fse = require('fs-extra');
 const paths = require('./paths');
 const path = require('path');
 let {iconFontCDNUrl,proIconFontDirectory,iconfontFileName} = require('./config.custom.js');
@@ -49,7 +50,7 @@ request.get(`http:${iconFontCDNUrl}`,function(err,res,body){
 
 //下载图标文件
 function downloadFile(url,type){
-    return new Promise(function(resolve,reject){
+    return new Promise(async function(resolve,reject){
         // request.get(url,function(err,res,body){
 
         //     fs.writeFile(`${proIconFontDirectory}/${iconfontFileName}.${type}`, body, (err) => {
@@ -62,6 +63,8 @@ function downloadFile(url,type){
 
         // });
         try{
+
+            await fse.ensureDir(`${proIconFontDirectory}`);
 
             let res = request.get(url);
             let cws = fs.createWriteStream(`${proIconFontDirectory}/${iconfontFileName}.${type}`)
@@ -86,7 +89,10 @@ function downloadFile(url,type){
 
 //保存css文件
 function writeFileCss(body){
-    return new Promise(function(resolve,reject){
+    return new Promise(async function(resolve,reject){
+
+        await fse.ensureDir(`${proIconFontDirectory}`);
+
         fs.writeFile(`${proIconFontDirectory}/${iconfontFileName}.css`, body, (err) => {
             if (err) {
                 reject()
