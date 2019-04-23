@@ -62,7 +62,7 @@ let setCallBackLoadScript = (function(){
             let loadCallBackName = `${className}OnLoad`;
 
             //如果某脚本要加载的资源为当前加载的资源
-            if(cacheLibForScriptOptions[className]==optinsValue){
+            if(cacheLibForScriptOptions[className]===optinsValue){
                 return resolve(window[className])
             }
 

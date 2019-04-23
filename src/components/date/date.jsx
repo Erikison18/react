@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { DatePicker, Radio } from 'antd';
 import moment from 'moment';
+import {monthLastDate,dayLastDate} from '@js/utils'
 
 const { MonthPicker, RangePicker, WeekPicker } = DatePicker;
 
@@ -25,12 +26,14 @@ export default class PickerSizesDemo extends React.Component {
         <br /><br />
         <DatePicker size={size} />
         <br />
-        <MonthPicker size={size} placeholder="Select Month" />
+        <MonthPicker size={size} placeholder="Select Month"  onChange={(moment,value)=>{
+          console.log(monthLastDate(value));
+        }}/>
         <br />
         <RangePicker size={size} />
         <br />
-        <WeekPicker size={size} placeholder="Select Week" onChange={(...a)=>{
-          console.log(a);
+        <WeekPicker size={size} placeholder="Select Week" onChange={(moment,value)=>{
+          console.log(dayLastDate(value));
         }}/>
       </div>
     );
