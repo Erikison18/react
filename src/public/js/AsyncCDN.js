@@ -1,5 +1,3 @@
-import {getAutoPathPrefix} from "@js/utils.js";
-const autoPathPrefix = getAutoPathPrefix();
 const mapPath = document.body.getAttribute('mapPath');
 const pictureType = document.body.getAttribute('pictureType');
 //高德api
@@ -20,12 +18,12 @@ export const BMapAsync = async ()=>{
    
     if (process.env.NODE_ENV==='production'){ 
         window.__BAIDU__API__CONFIG__={
-            scriptPath:autoPathPrefix+'/baiduApi/',//脚本目录地址
-            imagePath:autoPathPrefix+'/baiduApi/images/',//百度小图标目录地址
+            scriptPath:`${process.env.PUBLIC_URL}/baiduApi/`,//脚本目录地址
+            imagePath:`${process.env.PUBLIC_URL}/baiduApi/images/`,//百度小图标目录地址
             maptilePath:mapPath, //瓦片图目录
             maptileFormate:pictureType//瓦片图格式
         }
-        return await loadScript(autoPathPrefix+'/baiduApi/apiv2.0_street.js','BMap');
+        return await loadScript(`${process.env.PUBLIC_URL}/baiduApi/apiv2.0_street.js`,'BMap');
      
     }else{
         return setCallBackLoadScript('https://api.map.baidu.com/api?v=2.0&ak=19d4aa4182c4809347bbf96f0820dc69&s=1','BMap');
@@ -33,7 +31,7 @@ export const BMapAsync = async ()=>{
 }
 export const BDrawAsync=()=>{
     if (process.env.NODE_ENV==='production'){
-        return loadScript(autoPathPrefix+'/baiduApi/DrawingManager_1.4.js','BMapLib');
+        return loadScript(`${process.env.PUBLIC_URL}/baiduApi/DrawingManager_1.4.js`,'BMapLib');
     }else{
         return loadScript('https://api.map.baidu.com/library/DrawingManager/1.4/src/DrawingManager_min.js','BMapLib');
     }

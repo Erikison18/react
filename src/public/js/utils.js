@@ -15,7 +15,8 @@ export function formatTextCodeToview(string){
 //获取自动前缀
 export function getAutoPathPrefix(){
 
-    return document.body.getAttribute('prefix');
+    if (process.env.NODE_ENV==='production') return document.body.getAttribute('prefix');
+    else return process.env.FETCH_PREFIX;
 
 }
 
