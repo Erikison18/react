@@ -9,7 +9,9 @@ const paths = require('./paths');
 const url = require('url');
 const {iconFontCDNUrl,proIconFontDirectory,iconfontFileName,fetchPrefix} = require('./config.custom.js');
 // const { ReactLoadablePlugin } = require('react-loadable/webpack');
-const FileListPlugin = require('./FileListPlugin.js');
+// const HappyPack = require('happypack');
+// const os = require('os');
+// const happyThreadPool = HappyPack.ThreadPool({ size: os.cpus().length });
 
 function common(config) {
 
@@ -88,6 +90,7 @@ function common(config) {
     /*
     plugin
     */
+
     config.plugins.unshift(new webpack.DefinePlugin({
         'process.env': {
             NODE_ENV : JSON.stringify(process.env.NODE_ENV || 'development'),
@@ -142,17 +145,149 @@ exports.dev = function(config) {
         ]
     });
 
-
-    //plugins
+    /*plugin*/
     config.plugins.push(new webpack.optimize.CommonsChunkPlugin({
         name: 'vendors',
         filename: path.join('static/js/[name].js')
+    }));
+    config.plugins.push(new webpack.optimize.CommonsChunkPlugin({
+      name: 'manifest',
+      minChunks: Infinity
+    }));
+
+    config.plugins.push(new webpack.optimize.CommonsChunkPlugin({
+        name: 'main',
+        async: 'vendor-async',
+        children: true,
+        minChunks: 3
     }));
     //iconfont配置
     config.plugins.push(new InterpolateHtmlPlugin({
         ICON_FONT_SOUCE:iconFontCDNUrl?`<link rel="stylesheet" href="${iconFontCDNUrl}">`:''
     }));
 
+    // config.module.rules.push({
+    //     test: /\.less$/,
+    //     //把对.js 的文件处理交给id为happyBabel 的HappyPack 的实例执行
+    //     loader: 'happypack/loader?id=happyLess',
+    //     //排除node_modules 目录下的文件
+    //     exclude: /node_modules/
+    // });
+
+    // config.plugins.push(new HappyPack({
+    //     //用id来标识 happypack处理那里类文件
+    //   id: 'happyLess',
+    //   //如何处理  用法和loader 的配置一样
+    //         loaders: [{
+    //             test: /\.less$/,
+    //             include: paths.appSrc,
+    //             loader: 'less-loader'
+    //         }],
+    //   //共享进程池
+    //   threadPool: happyThreadPool,
+    //   //允许 HappyPack 输出日志
+    //   verbose: true,
+    // }))
+
+    // config.module.rules.push({
+    //     test: /\.css$/,
+    //     //把对.js 的文件处理交给id为happyBabel 的HappyPack 的实例执行
+    //     loader: 'happypack/loader?id=happyCss',
+    //     //排除node_modules 目录下的文件
+    //     exclude: /node_modules/
+    // });
+
+
+    // config.plugins.push(new HappyPack({
+    //     //用id来标识 happypack处理那里类文件
+    //   id: 'happyCss',
+    //   //如何处理  用法和loader 的配置一样
+    //         loaders: [{
+    //             test: /\.css$/,
+    //             include: paths.appSrc,
+    //             loader: 'css-loader',
+    //             options: {
+    //                 importLoaders: 1,
+    //             },
+    //         }],
+    //   //共享进程池
+    //   threadPool: happyThreadPool,
+    //   //允许 HappyPack 输出日志
+    //   verbose: true,
+    // }))
+
+
+    // config.plugins.push(new HappyPack({
+    //     //用id来标识 happypack处理那里类文件
+    //   id: 'happyStyle',
+    //   //如何处理  用法和loader 的配置一样
+    //         loaders: [{
+    //             test: /\.css$/,
+    //             include: paths.appSrc,
+    //             loader: 'style-loader'
+    //         }],
+    //   //共享进程池
+    //   threadPool: happyThreadPool,
+    //   //允许 HappyPack 输出日志
+    //   verbose: true,
+    // }))
+
+
+
+    // config.module.rules.push({
+    //     test: /\.css$/,
+    //     //把对.js 的文件处理交给id为happyBabel 的HappyPack 的实例执行
+    //     loader: 'happypack/loader?id=happyStyle',
+    //     //排除node_modules 目录下的文件
+    //     exclude: /node_modules/
+    // });
+
+
+    // config.plugins.push(new HappyPack({
+    //     //用id来标识 happypack处理那里类文件
+    //   id: 'happyCss',
+    //   //如何处理  用法和loader 的配置一样
+    //         loaders: [{
+    //             test: /\.css$/,
+    //             include: paths.appSrc,
+    //             loader: 'style-loader'
+    //         }],
+    //   //共享进程池
+    //   threadPool: happyThreadPool,
+    //   //允许 HappyPack 输出日志
+    //   verbose: true,
+    // }))
+
+
+    // config.module.rules.push({
+    //     test: /\.(js|jsx|mjs)$/,
+    //     //把对.js 的文件处理交给id为happyBabel 的HappyPack 的实例执行
+    //     loader: 'happypack/loader?id=happyBabel',
+    //     //排除node_modules 目录下的文件
+    //     exclude: /node_modules/
+    // });
+
+    // config.plugins.push(new HappyPack({
+    //     //用id来标识 happypack处理那里类文件
+    //   id: 'happyBabel',
+    //   //如何处理  用法和loader 的配置一样
+    //         loaders: [{
+    //             test: /\.(js|jsx|mjs)$/,
+    //             include: paths.appSrc,
+    //             loader: 'babel-loader',
+    //             options: {
+
+    //                 // This is a feature of `babel-loader` for webpack (not Babel itself).
+    //                 // It enables caching results in ./node_modules/.cache/babel-loader/
+    //                 // directory for faster rebuilds.
+    //                 cacheDirectory: true
+    //             },
+    //         }],
+    //   //共享进程池
+    //   threadPool: happyThreadPool,
+    //   //允许 HappyPack 输出日志
+    //   verbose: true,
+    // }))
 
     //解决ie兼容
     // config.module.rules.push({
