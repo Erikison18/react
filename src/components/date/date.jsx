@@ -24,13 +24,13 @@ export default class PickerSizesDemo extends React.Component {
           <Radio.Button value="small">Small</Radio.Button>
         </Radio.Group>
         <br /><br />
-        <DatePicker size={size} />
+        <DatePicker size={size}  onPanelChange={(...a)=>{console.log(a)}}/>
         <br />
         <MonthPicker size={size} placeholder="Select Month"  onChange={(moment,value)=>{
           console.log(monthLastDate(value));
         }}/>
         <br />
-        <RangePicker size={size} />
+        <RangePicker size={size} onCalendarChange={(...a)=>{console.log(a)}} onChange={(...a)=>{console.log(a)}}/>
         <br />
         <WeekPicker size={size} placeholder="Select Week" onChange={(moment,value)=>{
           console.log(dayLastDate(value));
