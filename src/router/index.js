@@ -54,6 +54,11 @@ let DateC= RouterLoadable({
         import ('@components/date/date.jsx'),
 });
 
+let Reselector= RouterLoadable({
+    loader: () =>
+        import ('@components/reselector/reselector.jsx'),
+});
+
 
 let ErrorComponent = RouterLoadable({
     loader: () =>
@@ -101,6 +106,10 @@ path: '/auth/:id',
 }, {
     path: '/animation',
     component: Animation,
+    exact: true
+}, {
+    path: '/reselector',
+    component: Reselector,
     exact: true
 }, {
     path: '/',
