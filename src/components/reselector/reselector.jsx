@@ -35,7 +35,6 @@ export default class Reselector extends Component {
     }
 
     render() {
-        console.log(this.props);
         return (
             <div>
                 <ol>
