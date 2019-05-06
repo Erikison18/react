@@ -14,6 +14,12 @@ export default class CatchErrorBoundary extends Component {
             info
         })
     }
+    componentWillReceiveProps(){
+        this.setState({
+            error:null,
+            info:null
+        })
+    }
     render(){
 
         let {error,info}=this.state;
