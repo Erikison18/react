@@ -79,7 +79,12 @@ export default class AMapDemo extends Component {
     async renderBMap(){
         let BMap = await BMapAsync();
         let map = new BMap.Map('bMapDemoContainer');
-        map.centerAndZoom(new BMap.Point(116.404, 39.915), 11);
+        map.centerAndZoom(new BMap.Point(104.070367,30.579786), 18);
+            // 百度地图API功能
+
+        this.BmapClass = map;
+        this.BMapClass = BMap;
+
     }
 
     async createCustomLayout(){
@@ -101,6 +106,34 @@ export default class AMapDemo extends Component {
 
     }
 
+    searchClick = () =>{
+
+        // this.BmapClass = map;
+        // this.BMapClass = BMap;
+        var myKeys = ['超市','餐厅（饭馆）','公司','政府单位','金融科技大厦','网点','便利店（24小时）'];
+        var local = new this.BMapClass.LocalSearch(this.BmapClass, {
+            renderOptions:{map: this.BmapClass, panel:"r-result"},
+            pageCapacity:1
+        });
+        local.searchInBounds(myKeys, this.BmapClass.getBounds());
+        local.setSearchCompleteCallback(function(data){
+            console.log(data);
+            let newData = data.reduce((prev,item)=>{
+
+                prev.data[item.keyword]=item.Ar
+                prev.totalNum+=item.Ar.length;
+
+                return prev
+
+            },{
+                data:{},
+                totalNum:0
+            });
+            console.log(JSON.stringify(newData));
+        })
+
+    }
+
     componentDidMount() {
         this.renderAMap().then(this.createCustomLayout.bind(this));
         this.renderLoca();
@@ -109,7 +142,7 @@ export default class AMapDemo extends Component {
 
     render() {
         return (
-            <div>
+            <div onClick={this.searchClick}>
                 <div id="aMapDemoContainer" className="aMapDemoContainer"></div>
                 <div id="locaDemoContainer" className="locaDemoContainer"></div>
                 <div id="bMapDemoContainer" className="bMapDemoContainer"></div>

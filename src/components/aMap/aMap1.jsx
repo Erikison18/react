@@ -11,7 +11,8 @@ export default class AMapDemo extends Component {
         this.map = new this.AMap.Map('aMapDemoContainer', {
             viewMode:'3D',
             pitch: 50,
-            zoom: 10
+            zoom: 10,
+            mapStyle: 'amap://styles/whitesmoke'
         });
 
     }
