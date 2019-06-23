@@ -46,6 +46,7 @@ function renderRoutes(routes, extraProps, switchProps) {
       strict: route.strict,
       cacheKey:route.path,
       when:'always',
+      className:'cache-route-class',
       render: function render(props) {
         return route.render ? route.render(_extends({}, props, extraProps, {
           route: route

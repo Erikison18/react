@@ -9,8 +9,8 @@ module.exports = {
     iconfontFileName:'iconfont',
     //请求前缀
     fetchPrefix:'',
-    //使用路由缓存
-    useKeepAlive:true
+    //使用路由缓存，这种方案不能使用路由动画
+    useKeepAlive:false
 }
 
 
