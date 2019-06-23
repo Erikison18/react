@@ -7,7 +7,7 @@ const InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin');
 const webpack = require('webpack');
 const paths = require('./paths');
 const url = require('url');
-const {iconFontCDNUrl,proIconFontDirectory,iconfontFileName,fetchPrefix} = require('./config.custom.js');
+const {iconFontCDNUrl,proIconFontDirectory,iconfontFileName,fetchPrefix,useKeepAlive} = require('./config.custom.js');
 // const { ReactLoadablePlugin } = require('react-loadable/webpack');
 // const HappyPack = require('happypack');
 // const os = require('os');
@@ -57,6 +57,8 @@ function common(config) {
     config.resolve.alias['@other'] = path.join(paths.appSrc, 'public', '/other');
     //临时解决antd icons 包大的办法
     config.resolve.alias['@ant-design/icons/lib/dist$'] = path.join(paths.appSrc, 'public', '/js/icons.js');
+    //修改react-router-config 设置react-router-cache-route 实现router切换缓存
+    if(useKeepAlive===true)config.resolve.alias['react-router-config'] = path.join(paths.appSrc, 'public', '/js/react-router-config.js');
 
     /*
     extensions

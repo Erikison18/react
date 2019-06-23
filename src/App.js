@@ -140,6 +140,8 @@ class App extends Component {
                                     <li><Link to='/animation'>animation</Link></li>
                                     <li><Link to='/date'>date</Link></li>
                                     <li><Link to='/reselector'>reselector</Link></li>
+                                    <li><Link to='/keepAlive/1'>/keepAlive/:1</Link></li>
+                                    <li><Link to='/keepAlive/2'>/keepAlive/:2</Link></li>
                                 </ul>
                                 <Layout/>
                             </CatchErrorBoundary>
@@ -161,15 +163,8 @@ class Layout extends Component {
             key='';
         }
         return(
-            <TransitionGroup component={null}>
-                <CSSTransition
-                    key={key}
-                    classNames='fade-node'
-                    timeout={500}
-                >
-                    {renderRoutes(routes,{},{location:this.props.location})}
-                </CSSTransition>
-            </TransitionGroup>
+
+                    renderRoutes(routes,this.props,{location:this.props.location})
         )
     }
 }

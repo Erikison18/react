@@ -60,6 +60,15 @@ let Reselector= RouterLoadable({
 });
 
 
+let KeepAlive= RouterLoadable({
+    loader: () =>
+        import ('@components/keepAlive/keepAlive.jsx'),
+});
+
+
+
+
+
 let ErrorComponent = RouterLoadable({
     loader: () =>
         import ('@components/common/error'),
@@ -110,6 +119,10 @@ path: '/auth/:id',
 }, {
     path: '/reselector',
     component: Reselector,
+    exact: true
+}, {
+    path: '/keepAlive/:id',
+    component: KeepAlive,
     exact: true
 }, {
     path: '/',

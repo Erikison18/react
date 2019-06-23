@@ -52,7 +52,7 @@ export default class AuthLayout extends Component {
     }
 
     render() {
-        console.log(this.props.location);
+        // console.log(this.props.location);
         return (
             <div>
                 <i className="icon iconfont icon-ugly-nav"></i>
